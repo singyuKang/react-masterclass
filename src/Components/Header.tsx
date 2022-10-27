@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { theme } from "../theme";
+
 import { motion, useAnimation, useViewportScroll } from "framer-motion";
 import { Link } from "react-router-dom";
 import { useMatch, useNavigate } from "react-router-dom";

@@ -8,6 +8,7 @@ import { ThemeProvider } from "styled-components";
 import { theme } from "./theme";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
+import Header from "./Components/Header";
 
 const client = new QueryClient();
 
@@ -17,13 +18,14 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <RecoilRoot>
-      {/* <QueryClientProvider client={client}> */}
-      {/* <ThemeProvider theme={theme}> */}
-      {/* <GlobalStyle /> */}
-      <App />
-      {/* <ReactQueryDevtools initialIsOpen={false} /> */}
-      {/* </ThemeProvider> */}
-      {/* </QueryClientProvider> */}
+      <QueryClientProvider client={client}>
+        <ThemeProvider theme={theme}>
+          <GlobalStyle />
+          <App />
+
+          <ReactQueryDevtools initialIsOpen={false} />
+        </ThemeProvider>
+      </QueryClientProvider>
     </RecoilRoot>
   </React.StrictMode>
 );

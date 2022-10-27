@@ -209,8 +209,6 @@ function Home() {
         <Loader>Loading...</Loader>
       ) : (
         <>
-          <Header />
-
           <Banner
             onClick={increaseIndex}
             bgPhoto={makeImagePath(data?.results[0].backdrop_path || "")}
