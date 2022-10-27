@@ -43,13 +43,11 @@ const LoginWapper = styled.div`
 
 const LoginBody = styled.div`
   background-color: rgba(0, 0, 0, 0.75);
-  /* background-color:; */
-  /* align-self: center; */
+
   align-items: center;
   justify-content: center;
   border-radius: 4px;
   box-sizing: border-box;
-  /* display: flex; */
   width: 450px;
   height: 660px;
   min-height: 660px;
@@ -83,7 +81,7 @@ function Login() {
         </Logo>
       </Col>
       <LoginBodyWrapper>
-        <LoginBody />
+        <LoginBody></LoginBody>
       </LoginBodyWrapper>
     </Container>
   );
