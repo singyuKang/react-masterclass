@@ -7,6 +7,7 @@ import { useState } from "react";
 import { PathMatch, useMatch, useNavigate } from "react-router-dom";
 import { useViewportScroll } from "framer-motion";
 import { useForm } from "react-hook-form";
+import Header from "../Components/Header";
 
 const Wrapper = styled.div`
   background-color: black;
@@ -208,6 +209,8 @@ function Home() {
         <Loader>Loading...</Loader>
       ) : (
         <>
+          <Header />
+
           <Banner
             onClick={increaseIndex}
             bgPhoto={makeImagePath(data?.results[0].backdrop_path || "")}

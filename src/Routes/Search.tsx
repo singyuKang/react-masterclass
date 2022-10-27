@@ -6,7 +6,14 @@ function Search() {
   const keyword = new URLSearchParams(location.search).get("keyword");
 
   console.log(location);
-  return null;
+
+  return (
+    <>
+      <div>
+        <text>Search</text>
+      </div>
+    </>
+  );
   //api 요청 fetch 해서 결과 알려주도록
 }
 export default Search;

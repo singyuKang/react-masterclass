@@ -17,13 +17,13 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <RecoilRoot>
-      <QueryClientProvider client={client}>
-        <ThemeProvider theme={theme}>
-          <GlobalStyle />
-          <App />
-          <ReactQueryDevtools initialIsOpen={false} />
-        </ThemeProvider>
-      </QueryClientProvider>
+      {/* <QueryClientProvider client={client}> */}
+      {/* <ThemeProvider theme={theme}> */}
+      {/* <GlobalStyle /> */}
+      <App />
+      {/* <ReactQueryDevtools initialIsOpen={false} /> */}
+      {/* </ThemeProvider> */}
+      {/* </QueryClientProvider> */}
     </RecoilRoot>
   </React.StrictMode>
 );
