@@ -12,7 +12,7 @@ const Container = styled.div`
   flex-direction: column;
   position: relative;
 
-  flex: 1;
+  /* flex: 1; */
 `;
 
 const Logo = styled(motion.svg)`
