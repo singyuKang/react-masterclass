@@ -2,6 +2,8 @@ import { motion } from "framer-motion";
 import styled from "styled-components";
 import Image from "react";
 import { ImageConstants } from "../utils";
+import { themegloabalStyle } from "../themegloabalStyle";
+import colors from "../colors";
 
 const Container = styled.div`
   position: absolute;
@@ -19,7 +21,6 @@ const Logo = styled(motion.svg)`
   margin-left: 30px;
   width: 150px;
   height: 100px;
-
   fill: ${(props) => props.theme.red};
   path {
     stroke-width: 6px;
@@ -33,11 +34,8 @@ const Col = styled.div`
 
 const LoginWapper = styled.div`
   display: flex;
-
   min-height: 100vh;
-
   position: absolute;
-
   z-index: -2;
 `;
 
@@ -76,6 +74,14 @@ const LoginBodyWrapper = styled.div`
   display: flex;
 `;
 
+const LoginText = styled.div`
+  /* background-color: white; */
+  font-size: 25px;
+  /* flex: 1; */
+  /* height: 50px; */
+  /* font-style: normal; */
+`;
+
 const LoginContent = styled.div``;
 
 function Login() {
@@ -96,9 +102,7 @@ function Login() {
       </Col>
       <LoginBodyWrapper>
         <LoginBody>
-          <div style={{ backgroundColor: "blue" }}>
-            <text>로그인</text>
-          </div>
+          <LoginText>로그인</LoginText>
         </LoginBody>
       </LoginBodyWrapper>
     </Container>
