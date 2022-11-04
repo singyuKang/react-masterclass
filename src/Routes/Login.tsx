@@ -44,19 +44,33 @@ const LoginWapper = styled.div`
 const LoginBody = styled.div`
   background-color: rgba(0, 0, 0, 0.75);
 
-  align-items: center;
-  justify-content: center;
+  padding-left: 30px;
+  padding-right: 30px;
+  padding-top: 40px;
+  padding-bottom: 40px;
+
+  /* align-items: center; */
+  /* justify-content: center; */
   border-radius: 4px;
   box-sizing: border-box;
-  width: 450px;
-  height: 660px;
-  min-height: 660px;
-  min-width: 450px;
+  width: 350px;
+  height: 560px;
+  min-height: 560px;
+  min-width: 350px;
+  display: flex;
+  flex-direction: column;
+`;
+
+const LoginInside = styled.div`
+  background-color: white;
+  flex: 1;
+  height: 500px;
 `;
 
 const LoginBodyWrapper = styled.div`
   margin-top: 50px;
   justify-content: center;
+  /* background-color: brown; */
   border-radius: 4px;
   box-sizing: border-box;
   display: flex;
@@ -81,7 +95,11 @@ function Login() {
         </Logo>
       </Col>
       <LoginBodyWrapper>
-        <LoginBody></LoginBody>
+        <LoginBody>
+          <div style={{ backgroundColor: "blue" }}>
+            <text>로그인</text>
+          </div>
+        </LoginBody>
       </LoginBodyWrapper>
     </Container>
   );
