@@ -4,6 +4,7 @@ import Image from "react";
 import { ImageConstants } from "../utils";
 import { themegloabalStyle } from "../themegloabalStyle";
 import colors from "../colors";
+import { useSelector, useDispatch } from "react-redux";
 
 const Container = styled.div`
   position: absolute;
@@ -85,6 +86,26 @@ const LoginText = styled.div`
 const LoginContent = styled.div``;
 
 function Login() {
+  const dispatch = useDispatch();
+  const { value } = useSelector((state: any) => {
+    console.log("🚀 ~ file: Login.tsx ~ line 91 ~ Login ~ state", state);
+    return state.value;
+  });
+  const { count } = useSelector((state: any) => state.count);
+
+  const addValue = () => {
+    dispatch({ type: "increment" });
+  };
+  const subValue = () => {
+    dispatch({ type: "decrement" });
+  };
+  const resetValue = () => {
+    dispatch({ type: "reset" });
+  };
+  const pushButton = () => {
+    dispatch({ type: "push" });
+  };
+
   return (
     <Container>
       <LoginWapper>
@@ -103,6 +124,12 @@ function Login() {
       <LoginBodyWrapper>
         <LoginBody>
           <LoginText>로그인</LoginText>
+          <div>value: {value}</div>
+          <button onClick={addValue}> + </button>
+          <button onClick={subValue}> - </button>
+          <button onClick={resetValue}> reset </button>
+          <div>count: {count}</div>
+          <button onClick={pushButton}> click </button>
         </LoginBody>
       </LoginBodyWrapper>
     </Container>
