@@ -55,7 +55,7 @@ table {
   box-sizing: border-box;
 }
 body{
-  font-weight: 300;
+  font-weight: 100;
   font-family: 'Source Sans Pro', sans-serif;
   color:${(props) => props.theme.white.darker};
   line-height: 1.2;
