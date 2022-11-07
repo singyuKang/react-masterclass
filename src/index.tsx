@@ -9,6 +9,8 @@ import { theme } from "./theme";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 import Header from "./Components/Header";
+import { Provider } from "react-redux";
+import store from "./redux/store";
 
 const client = new QueryClient();
 
@@ -18,13 +20,15 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <RecoilRoot>
-      <QueryClientProvider client={client}>
-        <ThemeProvider theme={theme}>
-          <GlobalStyle />
-          <App />
-          <ReactQueryDevtools initialIsOpen={false} />
-        </ThemeProvider>
-      </QueryClientProvider>
+      <Provider store={store}>
+        <QueryClientProvider client={client}>
+          <ThemeProvider theme={theme}>
+            <GlobalStyle />
+            <App />
+            <ReactQueryDevtools initialIsOpen={false} />
+          </ThemeProvider>
+        </QueryClientProvider>
+      </Provider>
     </RecoilRoot>
   </React.StrictMode>
 );
