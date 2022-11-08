@@ -86,7 +86,7 @@ const LoginText = styled.div`
 
 const LoginContent = styled.div``;
 
-function Login() {
+function SignUp() {
   // const dispatch = useDispatch();
   // const { value } = useSelector((state: any) => {
   //   console.log("🚀 ~ file: Login.tsx ~ line 91 ~ Login ~ state", state);
@@ -199,4 +199,4 @@ function Login() {
     </Container>
   );
 }
-export default Login;
+export default SignUp;
