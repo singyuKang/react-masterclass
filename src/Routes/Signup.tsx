@@ -6,6 +6,7 @@ import { themegloabalStyle } from "../themegloabalStyle";
 import colors from "../colors";
 import { useSelector, useDispatch } from "react-redux";
 import { loginEmail, signupEmail } from "../fBase";
+import { useNavigate } from "react-router-dom";
 
 const Container = styled.div`
   position: absolute;
@@ -15,6 +16,7 @@ const Container = styled.div`
   height: 100%;
   flex-direction: column;
   position: relative;
+  background-color: white;
 
   /* flex: 1; */
 `;
@@ -108,6 +110,7 @@ function SignUp() {
   // };
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
   const onChange = (event: any) => {
     // console.log(event.target.value);
@@ -125,12 +128,26 @@ function SignUp() {
   const onSubmit = async (event: any) => {
     event.preventDefault();
     console.log("hello");
+    try {
+      let data = await signupEmail(email, password);
+      console.log("🚀 ~ file: Signup.tsx ~ line 132 ~ onSubmit ~ data", data);
+      alert("회원가입 완료되었습니다");
+      navigate("/");
+    } catch (error) {
+      var errorCode = (error as any).code;
+      alert("email already in use");
+      console.log(
+        "🚀 ~ file: Signup.tsx ~ line 136 ~ onSubmit ~ errorCode",
+        errorCode
+      );
+      console.log("🚀 ~ file: Signup.tsx ~ line 135 ~ onSubmit ~ error", error);
+    }
   };
   return (
     <Container>
-      <LoginWapper>
-        <img src={ImageConstants.LOGIN} alt="Login.logo" />
-      </LoginWapper>
+      {/* <LoginWapper>
+        <img src={ImageConstants.LOGIN} alßt="Login.logo" />
+      </LoginWapper> */}
       <Col>
         <Logo
           xmlns="http://www.w3.org/2000/svg"
@@ -143,7 +160,7 @@ function SignUp() {
       </Col>
       <LoginBodyWrapper>
         <LoginBody>
-          <LoginText>로그인</LoginText>
+          <LoginText>회원가입</LoginText>
           <form
             onSubmit={onSubmit}
             style={{
@@ -182,10 +199,17 @@ function SignUp() {
               onChange={onChange}
               required
             />
-            <input type="submit" value={"로 그 인"} />
+            <input type="submit" value={"회원가입"} />
           </form>
           <span>
-            회원이 아니신가요? <span>지금 가입하세요.</span>
+            회원이 아니신가요?{" "}
+            <span
+              onClick={() => {
+                navigate("/");
+              }}
+            >
+              지금 가입하세요.
+            </span>
           </span>
 
           {/* <div>value: {value}</div>

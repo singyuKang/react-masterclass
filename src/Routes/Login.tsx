@@ -6,6 +6,7 @@ import { themegloabalStyle } from "../themegloabalStyle";
 import colors from "../colors";
 import { useSelector, useDispatch } from "react-redux";
 import { loginEmail, signupEmail } from "../fBase";
+import { useNavigate } from "react-router-dom";
 
 const Container = styled.div`
   position: absolute;
@@ -108,6 +109,7 @@ function Login() {
   // };
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
   const onChange = (event: any) => {
     // console.log(event.target.value);
@@ -125,6 +127,19 @@ function Login() {
   const onSubmit = async (event: any) => {
     event.preventDefault();
     console.log("hello");
+    try {
+      let data;
+
+      //Log in
+      data = await loginEmail(email, password);
+
+      console.log(data);
+
+      navigate("/home");
+    } catch (error) {
+      console.log((error as any).message);
+      // setError(error.message);
+    }
   };
   return (
     <Container>
@@ -185,7 +200,14 @@ function Login() {
             <input type="submit" value={"로 그 인"} />
           </form>
           <span>
-            회원이 아니신가요? <span>지금 가입하세요.</span>
+            회원이 아니신가요?{" "}
+            <span
+              onClick={() => {
+                navigate("/signup");
+              }}
+            >
+              지금 가입하세요.
+            </span>
           </span>
 
           {/* <div>value: {value}</div>
