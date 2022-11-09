@@ -132,7 +132,6 @@ function Login() {
 
       //Log in
       data = await loginEmail(email, password);
-
       console.log(data);
 
       navigate("/home");
