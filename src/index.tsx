@@ -11,6 +11,7 @@ import { ReactQueryDevtools } from "react-query/devtools";
 import Header from "./Components/Header";
 import { Provider } from "react-redux";
 import store from "./redux/store";
+import { LoadingProvider } from "./contexts/LoadingContext";
 
 const client = new QueryClient();
 
@@ -20,15 +21,17 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <RecoilRoot>
-      <Provider store={store}>
-        <QueryClientProvider client={client}>
-          <ThemeProvider theme={theme}>
-            <GlobalStyle />
-            <App />
-            <ReactQueryDevtools initialIsOpen={false} />
-          </ThemeProvider>
-        </QueryClientProvider>
-      </Provider>
+      <LoadingProvider>
+        <Provider store={store}>
+          <QueryClientProvider client={client}>
+            <ThemeProvider theme={theme}>
+              <GlobalStyle />
+              <App />
+              <ReactQueryDevtools initialIsOpen={false} />
+            </ThemeProvider>
+          </QueryClientProvider>
+        </Provider>
+      </LoadingProvider>
     </RecoilRoot>
   </React.StrictMode>
 );
