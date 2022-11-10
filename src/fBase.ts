@@ -4,6 +4,7 @@ import { getAnalytics } from "firebase/analytics";
 import {
   createUserWithEmailAndPassword,
   getAuth,
+  sendSignInLinkToEmail,
   signInWithEmailAndPassword,
 } from "firebase/auth";
 // TODO: Add SDKs for Firebase products that you want to use
@@ -27,14 +28,18 @@ const app = initializeApp(firebaseConfig);
 //auth
 const auth = getAuth();
 
-//email login
+//email 회원가입
 export const signupEmail = (email: string, password: string) => {
   return createUserWithEmailAndPassword(auth, email, password);
 };
 
-//Email 회원가입
+//Email 로그인
 export const loginEmail = (email: string, password: string) => {
   return signInWithEmailAndPassword(auth, email, password);
 };
+
+// export const sendEmail = (email:string, ) =>{
+//   return sendSignInLinkToEmail(auth, email, actionCodeSettings)
+// }
 
 const analytics = getAnalytics(app);
