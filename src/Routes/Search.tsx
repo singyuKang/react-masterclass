@@ -9,9 +9,7 @@ function Search() {
 
   return (
     <>
-      <div>
-        <text>Search</text>
-      </div>
+      <div>search</div>
     </>
   );
   //api 요청 fetch 해서 결과 알려주도록
