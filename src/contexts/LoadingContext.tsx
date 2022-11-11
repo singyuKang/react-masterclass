@@ -1,5 +1,6 @@
 import React, { createContext, Dispatch } from "react";
 import { Action } from "typesafe-actions";
+import Loading from "../Components/loading/Loading";
 
 const initialState = {
   isLoading: false,
@@ -34,6 +35,7 @@ export function LoadingProvider({ children }: { children: React.ReactNode }) {
     <LoadingStateContext.Provider value={state}>
       <LoadingDispatchContext.Provider value={dispatch}>
         {children}
+        <Loading />
       </LoadingDispatchContext.Provider>
     </LoadingStateContext.Provider>
   );

@@ -7,6 +7,12 @@ import colors from "../colors";
 import { useSelector, useDispatch } from "react-redux";
 import { loginEmail, signupEmail } from "../fBase";
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import {
+  hideLoading,
+  showLoading,
+  useLoadingDispatch,
+} from "../contexts/LoadingContext";
 
 const Container = styled.div`
   position: absolute;
@@ -110,6 +116,14 @@ function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+
+  const loadingDispatch = useLoadingDispatch();
+
+  useEffect(() => {
+    showLoading(loadingDispatch);
+
+    // hideLoading(loadingDispatch);
+  }, []);
 
   const onChange = (event: any) => {
     // console.log(event.target.value);
