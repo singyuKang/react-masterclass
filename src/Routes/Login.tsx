@@ -122,7 +122,7 @@ function Login() {
   useEffect(() => {
     showLoading(loadingDispatch);
 
-    // hideLoading(loadingDispatch);
+    hideLoading(loadingDispatch);
   }, []);
 
   const onChange = (event: any) => {
