@@ -145,13 +145,17 @@ function Login() {
       let data;
 
       //Log in
+      showLoading(loadingDispatch);
       data = await loginEmail(email, password);
-      console.log(data);
+      hideLoading(loadingDispatch);
+      console.log("data : : : :: ", data);
 
       navigate("/home");
     } catch (error) {
       console.log((error as any).message);
       // setError(error.message);
+    } finally {
+      hideLoading(loadingDispatch);
     }
   };
   return (

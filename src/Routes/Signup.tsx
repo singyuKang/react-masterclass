@@ -7,6 +7,11 @@ import colors from "../colors";
 import { useSelector, useDispatch } from "react-redux";
 import { loginEmail, signupEmail } from "../fBase";
 import { useNavigate } from "react-router-dom";
+import {
+  hideLoading,
+  showLoading,
+  useLoadingDispatch,
+} from "../contexts/LoadingContext";
 
 const Container = styled.div`
   position: absolute;
@@ -110,6 +115,7 @@ function SignUp() {
   // };
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const loadingDispatch = useLoadingDispatch();
   const navigate = useNavigate();
 
   const onChange = (event: any) => {
@@ -129,7 +135,9 @@ function SignUp() {
     event.preventDefault();
     console.log("hello");
     try {
+      showLoading(loadingDispatch);
       let data = await signupEmail(email, password);
+      hideLoading(loadingDispatch);
       console.log("🚀 ~ file: Signup.tsx ~ line 132 ~ onSubmit ~ data", data);
       alert("회원가입 완료되었습니다");
       navigate("/");
