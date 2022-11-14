@@ -10,21 +10,38 @@ const Container = styled.div`
   height: 100%; */
   /* width: 150px;
   height: 150px; */
+  /* width: 100px;
+  height: 100px; */
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 15px;
+
   /* width: 50px;
   height: 50px; */
   /* transform: translate(-50%, -50%); */
 `;
 
 const NoMore = styled.div`
-  /* background-color: black; */
+  /* background-color: tomato; */
   /* transform: translate(-50%, -50%); */
-  /* display: flex;
-  flex: 1; */
+  display: flex;
+  flex: 1;
+  /* width: 150px;
+  height: 150px; */
+  width: 100%;
+  height: 100%;
+  /* width: 100px;
+  height: 100px; */
+  /* margin: 0 auto; */
+  /* position: absolute; */
+  /* margin: 0 auto; */
 
   /* left: 50%;
   top: 50%; */
   /* transform: translate(-50%, -50%); */
-  /* align-self: center; */
+  align-self: center;
   /* justify-content: center;
   align-items: center; */
   /* margin: 0 auto; */
@@ -35,21 +52,22 @@ const NoMore = styled.div`
 `;
 
 const LoadingImage = () => {
-  const container = useRef();
+  const container = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    lottie.loadAnimation({
-      container: container.current as any,
-      renderer: "svg",
-      loop: true,
-      autoplay: true,
-      animationData: require("../../assets/animations/loading2.json"),
-    });
+    if (container.current)
+      lottie.loadAnimation({
+        container: container.current as any,
+        renderer: "svg",
+        loop: true,
+        autoplay: true,
+        animationData: require("../../assets/animations/loading6.json"),
+      });
   }, []);
 
   return (
     <Container>
-      <NoMore ref={container as any} />
+      <NoMore ref={container} />
     </Container>
   );
 };
