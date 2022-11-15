@@ -38,6 +38,10 @@ export const loginEmail = (email: string, password: string) => {
   return signInWithEmailAndPassword(auth, email, password);
 };
 
+export const getToken = () => {
+  // Firebase
+};
+
 // export const sendEmail = (email:string, ) =>{
 //   return sendSignInLinkToEmail(auth, email, actionCodeSettings)
 // }
