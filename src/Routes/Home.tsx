@@ -3,11 +3,17 @@ import { getMovies, IGetMoviesResult } from "../api";
 import styled from "styled-components";
 import { makeImagePath } from "../utils";
 import { motion, AnimatePresence } from "framer-motion";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { PathMatch, useMatch, useNavigate } from "react-router-dom";
 import { useViewportScroll } from "framer-motion";
 import { useForm } from "react-hook-form";
 import Header from "../Components/Header";
+import {
+  hideLoading,
+  showLoading,
+  useLoadingDispatch,
+} from "../contexts/LoadingContext";
+import MovieService from "../api/services/MovieService";
 
 const Wrapper = styled.div`
   background-color: black;
@@ -171,6 +177,8 @@ function Home() {
   const navigate = useNavigate();
   const { scrollY } = useViewportScroll();
   const moviePathMatch: PathMatch<string> | null = useMatch("/movies/:id");
+  const loadingDispatch = useLoadingDispatch();
+
   console.log(moviePathMatch);
   const { data, isLoading } = useQuery<IGetMoviesResult>(
     ["movies", "nowPlay"],
@@ -202,6 +210,25 @@ function Home() {
     moviePathMatch?.params.id &&
     data?.results.find((movie) => movie.id + "" === moviePathMatch.params.id);
   /* console.log(clickedMovie) */
+
+  useEffect(() => {
+    _fetData();
+  }, []);
+
+  const _fetData = async () => {
+    try {
+      showLoading(loadingDispatch);
+      const response = await MovieService.getNewMovies();
+      console.log(
+        "🚀 ~ file: Home.tsx ~ line 222 ~ const_fetData= ~ response",
+        response
+      );
+    } catch (error) {
+      console.log("error:", error);
+    } finally {
+      hideLoading(loadingDispatch);
+    }
+  };
 
   return (
     <Wrapper>
