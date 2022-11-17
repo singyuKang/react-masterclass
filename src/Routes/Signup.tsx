@@ -12,6 +12,7 @@ import {
   showLoading,
   useLoadingDispatch,
 } from "../contexts/LoadingContext";
+import Swal from "sweetalert2";
 
 const Container = styled.div`
   position: absolute;
@@ -20,8 +21,8 @@ const Container = styled.div`
   width: 100%;
   height: 100%;
   flex-direction: column;
-  position: relative;
-  background-color: white;
+
+  background-color: #e1caca;
 
   /* flex: 1; */
 `;
@@ -39,6 +40,7 @@ const Logo = styled(motion.svg)`
 
 const Col = styled.div`
   display: flex;
+  background-color: black;
 `;
 
 const LoginWapper = styled.div`
@@ -86,6 +88,9 @@ const LoginBodyWrapper = styled.div`
 const LoginText = styled.div`
   /* background-color: white; */
   font-size: 25px;
+  font-weight: normal;
+  margin-bottom: 30px;
+
   /* flex: 1; */
   /* height: 50px; */
   /* font-style: normal; */
@@ -133,7 +138,6 @@ function SignUp() {
 
   const onSubmit = async (event: any) => {
     event.preventDefault();
-    console.log("hello");
     try {
       showLoading(loadingDispatch);
       let data = await signupEmail(email, password);
@@ -141,14 +145,31 @@ function SignUp() {
       console.log("🚀 ~ file: Signup.tsx ~ line 132 ~ onSubmit ~ data", data);
       alert("회원가입 완료되었습니다");
       navigate("/");
-    } catch (error) {
+    } catch (error: any) {
       var errorCode = (error as any).code;
-      alert("email already in use");
+      if (error.code == "auth/weak-password") {
+        Swal.fire({
+          icon: "warning",
+          // title: "hello",
+          text: "비밀번호를 다시 설정해주십시오. ",
+          // timer: 2000,
+        });
+      }
+      if (error.code == "auth/email-already-in-use") {
+        Swal.fire({
+          icon: "warning",
+          // title: "hello",
+          text: "이미 가입된 이메일입니다. 다른 이메일을 사용해주십시오 ",
+          // timer: 2000,
+        });
+      }
+
       console.log(
-        "🚀 ~ file: Signup.tsx ~ line 136 ~ onSubmit ~ errorCode",
-        errorCode
+        "🚀 ~ file: Signup.tsx ~ line 135 ~ onSubmit ~ error",
+        error.code
       );
-      console.log("🚀 ~ file: Signup.tsx ~ line 135 ~ onSubmit ~ error", error);
+    } finally {
+      hideLoading(loadingDispatch);
     }
   };
   return (
@@ -177,37 +198,49 @@ function SignUp() {
               flexDirection: "column",
             }}
           >
-            <input
+            <div
               style={{
                 display: "flex",
-                flex: 1,
-                marginBottom: 10,
-                height: 100,
-                // backgroundColor: "tomato",
+                height: 50,
+                borderRadius: 10,
+                backgroundColor: "tomato",
+                // padding: 5,
+                marginBottom: 20,
               }}
-              name="email"
-              value={email}
-              type="email"
-              placeholder="Email"
-              onChange={onChange}
-              required
-            />
+            >
+              <input
+                style={{
+                  display: "flex",
+                  flex: 1,
+                  borderRadius: 10,
+                  height: 50,
+                  // backgroundColor: "tomato",
+                }}
+                name="email"
+                value={email}
+                type="email"
+                placeholder="회원가입 이메일 주소"
+                onChange={onChange}
+                required
+              />
+            </div>
             <input
               style={{
                 display: "flex",
-                flex: 1,
-                marginBottom: 10,
-                height: 100,
+                // flex: 1,
+                height: 50,
+                borderRadius: 10,
+                marginBottom: 50,
                 // backgroundColor: "tomato",
               }}
               name="password"
               value={password}
               type="password"
-              placeholder="Password"
+              placeholder="회원가입 비밀번호"
               onChange={onChange}
               required
             />
-            <input type="submit" value={"회원가입"} />
+            <input style={styles.base} type="submit" value={"회원가입"} />
           </form>
           <span>
             회원이 아니신가요?{" "}
@@ -232,3 +265,29 @@ function SignUp() {
   );
 }
 export default SignUp;
+
+var styles = {
+  base: {
+    backgroundColor: "red",
+    color: "white",
+    height: 50,
+    borderRadius: 10,
+    marginBottom: 50,
+    // Adding interactive state couldn't be easier! Add a special key to your
+    // style object (:hover, :focus, :active, or @media) with the additional rules.
+    "::hover": {
+      background: "tomato",
+    },
+    "::inputPlaceholder": {
+      color: "blue",
+    },
+  },
+
+  primary: {
+    background: "#0074D9",
+  },
+
+  warning: {
+    background: "#FF4136",
+  },
+};

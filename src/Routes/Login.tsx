@@ -6,13 +6,14 @@ import { themegloabalStyle } from "../themegloabalStyle";
 import colors from "../colors";
 import { useSelector, useDispatch } from "react-redux";
 import { loginEmail, signupEmail } from "../fBase";
-import { useNavigate } from "react-router-dom";
+import { redirect, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import {
   hideLoading,
   showLoading,
   useLoadingDispatch,
 } from "../contexts/LoadingContext";
+import Swal from "sweetalert2";
 
 const Container = styled.div`
   position: absolute;
@@ -86,9 +87,11 @@ const LoginBodyWrapper = styled.div`
 const LoginText = styled.div`
   /* background-color: white; */
   font-size: 25px;
+  font-weight: normal;
   /* flex: 1; */
   /* height: 50px; */
   /* font-style: normal; */
+  margin-bottom: 30px;
 `;
 
 const LoginContent = styled.div``;
@@ -151,8 +154,42 @@ function Login() {
       console.log("data : : : :: ", data);
 
       navigate("/home");
-    } catch (error) {
-      console.log((error as any).message);
+    } catch (error: any) {
+      console.log(error, error.code);
+      if (error.code == "auth/invalid-email") {
+        Swal.fire({
+          icon: "warning",
+          // title: "hello",
+          text: "아이디 또는 비밀번호를 잘못 입력했습니다.입력하신 내용을 다시 확인해주세요.",
+          // timer: 2000,
+        });
+      }
+      if (error.code == "auth/user-not-found") {
+        Swal.fire({
+          icon: "warning",
+          // title: "hello",
+          text: "회원가입되지 않은 아이디입니다. 회원가입후 이용해 주세요",
+          // timer: 2000,
+        });
+      }
+      if (error.code == "auth/wrong-password") {
+        Swal.fire({
+          icon: "warning",
+          // title: "hello",
+          text: "아이디 또는 비밀번호를 잘못 입력했습니다.입력하신 내용을 다시 확인해주세요.",
+          // timer: 2000,
+        });
+      }
+
+      if (error.code == "auth/too-many-requests") {
+        Swal.fire({
+          icon: "warning",
+          // title: "hello",
+          text: "잠시만 기다려주세요.",
+          // timer: 2000,
+        });
+      }
+
       // setError(error.message);
     } finally {
       hideLoading(loadingDispatch);
@@ -184,48 +221,67 @@ function Login() {
               flexDirection: "column",
             }}
           >
-            <input
+            <div
               style={{
                 display: "flex",
-                flex: 1,
-                marginBottom: 10,
-                height: 100,
-                // backgroundColor: "tomato",
+                height: 50,
+                borderRadius: 10,
+                backgroundColor: "tomato",
+                // padding: 5,
+                marginBottom: 20,
               }}
-              name="email"
-              value={email}
-              type="email"
-              placeholder="Email"
-              onChange={onChange}
-              required
-            />
+            >
+              <input
+                style={{
+                  display: "flex",
+                  flex: 1,
+                  borderRadius: 10,
+                  height: 50,
+
+                  // height: 100,
+                  // backgroundColor: "tomato",
+                }}
+                name="email"
+                value={email}
+                type="email"
+                placeholder="이메일 주소"
+                onChange={onChange}
+                required
+              />
+            </div>
             <input
               style={{
+                // placeholder {
+                //   color: red;
+                //   font-style: italic;
+                // },
                 display: "flex",
-                flex: 1,
-                marginBottom: 10,
-                height: 100,
+                // flex: 1,
+                height: 50,
+                borderRadius: 10,
+                marginBottom: 50,
                 // backgroundColor: "tomato",
               }}
               name="password"
               value={password}
               type="password"
-              placeholder="Password"
+              placeholder="비밀번호"
               onChange={onChange}
               required
             />
-            <input type="submit" value={"로 그 인"} />
+            <input style={styles.base} type="submit" value={"로 그 인"} />
           </form>
-          <span>
-            회원이 아니신가요?{" "}
+          <div>
+            <span style={{ opacity: 0.5 }}>회원이 아니신가요? </span>
             <span
+              style={{ opacity: 1, textDecoration: "underline" }}
               onClick={() => {
                 navigate("/signup");
               }}
             >
               지금 가입하세요.
             </span>
-          </span>
+          </div>
 
           {/* <div>value: {value}</div>
           <button onClick={addValue}> + </button>
@@ -239,3 +295,29 @@ function Login() {
   );
 }
 export default Login;
+
+var styles = {
+  base: {
+    backgroundColor: "red",
+    color: "white",
+    height: 50,
+    borderRadius: 10,
+    marginBottom: 50,
+    // Adding interactive state couldn't be easier! Add a special key to your
+    // style object (:hover, :focus, :active, or @media) with the additional rules.
+    "::hover": {
+      background: "tomato",
+    },
+    "::inputPlaceholder": {
+      color: "blue",
+    },
+  },
+
+  primary: {
+    background: "#0074D9",
+  },
+
+  warning: {
+    background: "#FF4136",
+  },
+};

@@ -16,6 +16,25 @@ import {
 import MovieService from "../api/services/MovieService";
 import axios from "axios";
 
+interface MovieFetchData {
+  dates: {
+    maximum: string;
+    minimum: string;
+  };
+  page: number;
+  results: MovieFetchDataResult[];
+  total_pages: number;
+  total_results: number;
+}
+
+interface MovieFetchDataResult {
+  id: number;
+  backdrop_path: string;
+  poster_path: string;
+  title: string;
+  overview: string;
+}
+
 const Wrapper = styled.div`
   background-color: black;
 `;
@@ -182,11 +201,13 @@ function Home() {
   const API_KEY = "04c96827c11e080830f0c0b8d3a94fd6";
   const BASE_PATH = "https://api.themoviedb.org/3";
 
+  const [moviedata, setData] = useState<MovieFetchData>();
+
   // console.log(moviePathMatch);
-  // const { data, isLoading } = useQuery<IGetMoviesResult>(
-  //   ["movies", "nowPlay"],
-  //   getMovies
-  // );
+  const { data, isLoading } = useQuery<IGetMoviesResult>(
+    ["movies", "nowPlay"],
+    getMovies
+  );
   /* console.log(data, isLoading); */
   const [index, setIndex] = useState(0);
   const [leaving, setLeaving] = useState(false);
@@ -197,21 +218,21 @@ function Home() {
     navigate(`/`);
   };
 
-  // const increaseIndex = () => {
-  //   if (data) {
-  //     if (leaving) return;
-  //     toggleLeaving();
-  //     const totalMovies = data.results.length - 1;
-  //     const maxIndex = Math.floor(totalMovies / offset) - 1;
-  //     setIndex((prev) => (prev === maxIndex ? 0 : prev + 1));
-  //   }
-  // };
+  const increaseIndex = () => {
+    if (data) {
+      if (leaving) return;
+      toggleLeaving();
+      const totalMovies = data.results.length - 1;
+      const maxIndex = Math.floor(totalMovies / offset) - 1;
+      setIndex((prev) => (prev === maxIndex ? 0 : prev + 1));
+    }
+  };
 
   const toggleLeaving = () => setLeaving((prev) => !prev);
 
-  // const clickedMovie =
-  //   moviePathMatch?.params.id &&
-  //   data?.results.find((movie) => movie.id + "" === moviePathMatch.params.id);
+  const clickedMovie =
+    moviePathMatch?.params.id &&
+    data?.results.find((movie) => movie.id + "" === moviePathMatch.params.id);
   /* console.log(clickedMovie) */
 
   useEffect(() => {
@@ -226,21 +247,24 @@ function Home() {
       //   "🚀 ~ file: Home.tsx ~ line 222 ~ const_fetData= ~ response",
       //   response
       // );
-      // axios.post(url)
-      console.log(
-        axios.get(`${BASE_PATH}/movie/now_playing?api_key=${API_KEY}`)
-      );
+
+      await axios
+        .get(`${BASE_PATH}/movie/now_playing?api_key=${API_KEY}`)
+        .then((res) => {
+          setData(res.data);
+        });
     } catch (error) {
       console.log("error:", error);
     } finally {
       hideLoading(loadingDispatch);
     }
   };
+  // console.log("data : ", data);
 
   return (
     <Wrapper>
-      {/* {isLoading ? (
-        <Loader>Loading...</Loader>
+      {isLoading ? (
+        <></>
       ) : (
         <>
           <Header />
@@ -317,7 +341,7 @@ function Home() {
             </AnimatePresence>
           </Slider>
         </>
-      )} */}
+      )}
     </Wrapper>
   );
 }
