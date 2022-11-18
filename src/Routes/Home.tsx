@@ -299,9 +299,9 @@ function Home() {
         <></>
       ) : (
         <>
+          {/* <AnimatePresence initial={false} onExitComplete={toggleLeaving}> */}
           <Container>
             {navHeaderShow ? <Header /> : <></>}
-
             {/* <Banner
               onClick={increaseIndex}
               bgPhoto={makeImagePath(
@@ -362,72 +362,72 @@ function Home() {
                 );
               })}
             </Section>
-          </Container>
-          {/* 
-          <Slider>
-            <AnimatePresence initial={false} onExitComplete={toggleLeaving}>
-              <Row
-                transition={{ type: "tween", duration: 1 }}
-                variants={rowVariants}
-                initial="hidden"
-                animate="visible"
-                exit="exit"
-                key={index}
-              >
-                {nowPlaying?.results
-                  .slice(1)
-                  .slice(offset * index, offset * index + offset)
-                  .map((movie: any) => (
-                    <Box
-                      layoutId={movie.id + ""}
-                      transition={{ type: "tween" }}
-                      variants={boxVariants}
-                      onClick={() => onBoxClicked(movie.id)}
-                      whileHover="hover"
-                      initial="normal"
-                      bgPhoto={makeImagePath(movie.backdrop_path, "w500")}
-                      key={movie.id}
+            {/* <Slider>
+              <AnimatePresence initial={false} onExitComplete={toggleLeaving}>
+                <Row
+                  transition={{ type: "tween", duration: 1 }}
+                  variants={rowVariants}
+                  initial="hidden"
+                  animate="visible"
+                  exit="exit"
+                  key={index}
+                >
+                  {nowPlaying?.results
+                    .slice(1)
+                    .slice(offset * index, offset * index + offset)
+                    .map((movie: any) => (
+                      <Box
+                        layoutId={movie.id + ""}
+                        transition={{ type: "tween" }}
+                        variants={boxVariants}
+                        onClick={() => onBoxClicked(movie.id)}
+                        whileHover="hover"
+                        initial="normal"
+                        bgPhoto={makeImagePath(movie.backdrop_path, "w500")}
+                        key={movie.id}
+                      >
+                        <Info variants={infoVariants}>
+                          <h4>{movie.title}</h4>
+                        </Info>
+                      </Box>
+                    ))}
+                </Row>
+              </AnimatePresence>
+              <AnimatePresence>
+                {moviePathMatch ? (
+                  <>
+                    <Overlay
+                      onClick={onOverlayClick}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                    />
+                    <BigMovie
+                      style={{
+                        top: scrollY.get() - 450,
+                      }}
+                      layoutId={moviePathMatch.params.id + ""}
                     >
-                      <Info variants={infoVariants}>
-                        <h4>{movie.title}</h4>
-                      </Info>
-                    </Box>
-                  ))}
-              </Row>
-            </AnimatePresence>
-            <AnimatePresence>
-              {moviePathMatch ? (
-                <>
-                  <Overlay
-                    onClick={onOverlayClick}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                  />
-                  <BigMovie
-                    style={{
-                      top: scrollY.get() - 450,
-                    }}
-                    layoutId={moviePathMatch.params.id + ""}
-                  >
-                    {clickedMovie && (
-                      <>
-                        <BigCover
-                          style={{
-                            backgroundImage: `url(${makeImagePath(
-                              clickedMovie.backdrop_path,
-                              "w500"
-                            )})`,
-                          }}
-                        ></BigCover>
-                        <BigTitle>{clickedMovie.title}</BigTitle>
-                        <BigOverview>{clickedMovie.title}</BigOverview>
-                      </>
-                    )}
-                  </BigMovie>
-                </>
-              ) : null}
-            </AnimatePresence>
-          </Slider> */}
+                      {clickedMovie && (
+                        <>
+                          <BigCover
+                            style={{
+                              backgroundImage: `url(${makeImagePath(
+                                clickedMovie.backdrop_path,
+                                "w500"
+                              )})`,
+                            }}
+                          ></BigCover>
+                          <BigTitle>{clickedMovie.title}</BigTitle>
+                          <BigOverview>{clickedMovie.title}</BigOverview>
+                        </>
+                      )}
+                    </BigMovie>
+                  </>
+                ) : null}
+              </AnimatePresence>
+            </Slider> */}
+          </Container>
+          {/* </AnimatePresence> */}
         </>
       )}
     </Wrapper>
