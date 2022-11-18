@@ -4,6 +4,7 @@ import { getAnalytics } from "firebase/analytics";
 import {
   createUserWithEmailAndPassword,
   getAuth,
+  sendEmailVerification,
   sendSignInLinkToEmail,
   signInWithEmailAndPassword,
 } from "firebase/auth";
@@ -29,14 +30,38 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth();
 
 //email 회원가입
-export const signupEmail = (email: string, password: string) => {
-  return createUserWithEmailAndPassword(auth, email, password);
+export const signupEmail = async (email: string, password: string) => {
+  const userCredential = await createUserWithEmailAndPassword(
+    auth,
+    email,
+    password
+  );
+  await sendEmailVerification(userCredential.user);
+  return userCredential;
+  // return createUserWithEmailAndPassword(auth, email, password);
 };
 
 //Email 로그인
-export const loginEmail = (email: string, password: string) => {
-  return signInWithEmailAndPassword(auth, email, password);
+export const loginEmail = async (email: string, password: string) => {
+  const emailVerified = auth.currentUser?.emailVerified;
+  console.log(
+    "🚀 ~ file: fBase.ts ~ line 47 ~ loginEmail ~ emailVerified",
+    emailVerified
+  );
+  if (emailVerified === true) {
+    return signInWithEmailAndPassword(auth, email, password);
+  } else {
+    throw "auth/emailVerified";
+  }
+
+  // return signInWithEmailAndPassword(auth, email, password);
 };
+
+// export const sendEmail = () => {
+//   sendEmailVerification(auth.currentUser as any).then(() => {
+//     //Email verification Sent
+//   });
+// };
 
 export const getToken = () => {
   // Firebase

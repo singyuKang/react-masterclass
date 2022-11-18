@@ -155,7 +155,8 @@ function Login() {
 
       navigate("/home");
     } catch (error: any) {
-      console.log(error, error.code);
+      console.log("🚀 ~ file: Login.tsx ~ line 158 ~ onSubmit ~ error", error);
+      // console.log(error, error.code);
       if (error.code == "auth/invalid-email") {
         Swal.fire({
           icon: "warning",
@@ -186,6 +187,15 @@ function Login() {
           icon: "warning",
           // title: "hello",
           text: "잠시만 기다려주세요.",
+          // timer: 2000,
+        });
+      }
+
+      if (error == "auth/emailVerified") {
+        Swal.fire({
+          icon: "warning",
+          // title: "hello",
+          text: "회원가입하신 이메일 인증을 진행해주세요.",
           // timer: 2000,
         });
       }

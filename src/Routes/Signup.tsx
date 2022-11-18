@@ -143,7 +143,13 @@ function SignUp() {
       let data = await signupEmail(email, password);
       hideLoading(loadingDispatch);
       console.log("🚀 ~ file: Signup.tsx ~ line 132 ~ onSubmit ~ data", data);
-      alert("회원가입 완료되었습니다");
+      Swal.fire({
+        // icon: "warning",
+        // title: "hello",
+        text: "회원가입 완료되었습니다 이메일 인증을 진행해주세요",
+        // timer: 2000,
+      });
+
       navigate("/");
     } catch (error: any) {
       var errorCode = (error as any).code;
