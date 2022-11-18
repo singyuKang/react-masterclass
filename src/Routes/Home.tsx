@@ -219,6 +219,8 @@ function Home() {
   // console.log(data, isLoading);
   const [index, setIndex] = useState(0);
   const [leaving, setLeaving] = useState(false);
+  const [navHeaderShow, setnavHeaderShow] = useState(true);
+
   const onBoxClicked = (movieId: number) => {
     navigate(`/movies/${movieId}`);
   };
@@ -250,6 +252,20 @@ function Home() {
   useEffect(() => {
     _fetData();
   }, []);
+
+  useEffect(() => {
+    // console.log(
+    //   "🚀 ~ file: Header.tsx ~ line 124 ~ scrollY.onChange ~ scrollY",
+    //   scrollY.get()
+    // );
+    scrollY.onChange(() => {
+      if (scrollY.get() > 80) {
+        setnavHeaderShow(false);
+      } else {
+        setnavHeaderShow(true);
+      }
+    });
+  }, [scrollY]);
 
   const _fetData = async () => {
     try {
@@ -284,7 +300,7 @@ function Home() {
       ) : (
         <>
           <Container>
-            <Header />
+            {navHeaderShow ? <Header /> : <></>}
 
             {/* <Banner
               onClick={increaseIndex}
@@ -347,8 +363,8 @@ function Home() {
               })}
             </Section>
           </Container>
-
-          {/* <Slider>
+          {/* 
+          <Slider>
             <AnimatePresence initial={false} onExitComplete={toggleLeaving}>
               <Row
                 transition={{ type: "tween", duration: 1 }}
@@ -358,10 +374,10 @@ function Home() {
                 exit="exit"
                 key={index}
               >
-                {data?.results
+                {nowPlaying?.results
                   .slice(1)
                   .slice(offset * index, offset * index + offset)
-                  .map((movie) => (
+                  .map((movie: any) => (
                     <Box
                       layoutId={movie.id + ""}
                       transition={{ type: "tween" }}
