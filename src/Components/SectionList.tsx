@@ -86,8 +86,6 @@ const SectionList = ({
   year,
   isMovie = false,
 }: Props) => {
-  console.log("🚀 ~ file: SectionList.tsx ~ line 89 ~ imageUrl", imageUrl);
-
   return (
     <Link to={isMovie ? `/movie/${id}` : `/show/${id}`}>
       <Container>

@@ -104,12 +104,17 @@ interface IForm {
 
 function Header() {
   const [searchOpen, setSearchOpen] = useState(false);
-  const homeMatch = useMatch("/");
+  const homeMatch = useMatch("/home");
   const tvMatch = useMatch("/tv");
   const inputAnimation = useAnimation();
   const { scrollY } = useViewportScroll();
   const navAnimation = useAnimation();
+
   useEffect(() => {
+    // console.log(
+    //   "🚀 ~ file: Header.tsx ~ line 124 ~ scrollY.onChange ~ scrollY",
+    //   scrollY.get()
+    // );
     scrollY.onChange(() => {
       if (scrollY.get() > 80) {
         navAnimation.start({
@@ -122,6 +127,7 @@ function Header() {
       }
     });
   }, [scrollY]);
+
   const toggleSearch = () => {
     if (searchOpen) {
       inputAnimation.start({
@@ -164,7 +170,7 @@ function Header() {
         </Logo>
         <Items>
           <Item>
-            <Link to="/">
+            <Link to="/home">
               Home {homeMatch ? <Circle layoutId="circle" /> : null}
             </Link>
           </Item>

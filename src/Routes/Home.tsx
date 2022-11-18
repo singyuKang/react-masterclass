@@ -38,6 +38,9 @@ interface MovieFetchDataResult {
 }
 
 const Container = styled.div`
+  /* width: 100%; */
+  height: 100%;
+  background-color: black;
   /* padding: 20px; */
 `;
 
@@ -205,8 +208,8 @@ function Home() {
   const moviePathMatch: PathMatch<string> | null = useMatch("/movies/:id");
   const loadingDispatch = useLoadingDispatch();
   const [nowPlaying, setNowPlaying] = useState<any>();
-  const [upcoming, setUpcoming] = useState([]);
-  const [popular, setPopular] = useState([]);
+  const [upcoming, setUpcoming] = useState<any>();
+  const [popular, setPopular] = useState<any>([]);
 
   // console.log(moviePathMatch);
   // const { data, isLoading } = useQuery<IGetMoviesResult>(
@@ -242,7 +245,7 @@ function Home() {
     );
   /* console.log(clickedMovie) */
 
-  console.log(nowPlaying);
+  // console.log(nowPlaying);
 
   useEffect(() => {
     _fetData();
@@ -253,6 +256,13 @@ function Home() {
       showLoading(loadingDispatch);
       const response = await MovieService.getNewMovies();
       setNowPlaying(response.data);
+
+      const upComingRes = await MovieService.getUpComingMovie();
+      setUpcoming(upComingRes.data);
+
+      const popularRes = await MovieService.getPopularMovie();
+      setPopular(popularRes.data);
+
       // console.log(data);
       // await axios
       //   .get(`${BASE_PATH}/movie/now_playing?api_key=${API_KEY}`)
@@ -287,6 +297,40 @@ function Home() {
             </Banner> */}
             <Section title="Now Playing ">
               {nowPlaying?.results?.map((movie: any) => {
+                return (
+                  <SectionList
+                    key={movie.id}
+                    id={movie.id}
+                    title={movie.original_title}
+                    imageUrl={movie.poster_path}
+                    rating={movie.vote_average}
+                    isMovie={true}
+                    year={
+                      movie.release_date && movie.release_date.substring(0, 4)
+                    }
+                  />
+                );
+              })}
+            </Section>
+            <Section title="UpComing ">
+              {upcoming?.results?.map((movie: any) => {
+                return (
+                  <SectionList
+                    key={movie.id}
+                    id={movie.id}
+                    title={movie.original_title}
+                    imageUrl={movie.poster_path}
+                    rating={movie.vote_average}
+                    isMovie={true}
+                    year={
+                      movie.release_date && movie.release_date.substring(0, 4)
+                    }
+                  />
+                );
+              })}
+            </Section>
+            <Section title="Popular ">
+              {popular?.results?.map((movie: any) => {
                 return (
                   <SectionList
                     key={movie.id}

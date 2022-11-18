@@ -3,6 +3,8 @@ import styled from "styled-components";
 
 const Container = styled.div`
   padding-left: 50px;
+  padding-right: 50px;
+
   padding-top: 30px;
   margin-top: 60px;
   :not(:last-child) {
@@ -12,6 +14,7 @@ const Container = styled.div`
 
 const Title = styled.div`
   padding-left: 12px;
+
   font-size: 18px;
   font-weight: 600;
   line-height: 6px;
