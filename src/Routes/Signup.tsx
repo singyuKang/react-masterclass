@@ -5,7 +5,7 @@ import { ImageConstants } from "../utils";
 import { themegloabalStyle } from "../themegloabalStyle";
 import colors from "../colors";
 import { useSelector, useDispatch } from "react-redux";
-import { loginEmail, signupEmail } from "../fBase";
+import { loginEmail, sendEmail, signupEmail } from "../fBase";
 import { useNavigate } from "react-router-dom";
 import {
   hideLoading,
@@ -162,6 +162,7 @@ function SignUp() {
         });
       }
       if (error.code == "auth/email-already-in-use") {
+        // sendEmail();
         Swal.fire({
           icon: "warning",
           // title: "hello",

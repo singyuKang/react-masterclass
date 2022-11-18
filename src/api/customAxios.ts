@@ -4,13 +4,17 @@ const API_KEY = "04c96827c11e080830f0c0b8d3a94fd6";
 const BASE_PATH = "https://api.themoviedb.org/3";
 
 const instance: AxiosInstance = axios.create({
-  baseURL: "https://api.themoviedb.org/3",
-  timeout: 60000,
-  headers: {
-    // "Content-Type": "application/json",
-    "Access-Control-Allow-Origin": "*",
+  baseURL: "https://api.themoviedb.org/3/",
+  // timeout: 60000,
+  params: {
+    api_key: process.env.REACT_APP_API_KEY,
+    language: "en-US",
   },
-  withCredentials: true,
+  // headers: {
+  //   // "Content-Type": "application/json",
+  //   "Access-Control-Allow-Origin": "*",
+  // },
+  // withCredentials: true,
 });
 
 // axios.defaults.headers["Access-Control-Allow-Origin"] = "*";

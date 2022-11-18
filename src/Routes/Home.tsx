@@ -15,6 +15,8 @@ import {
 } from "../contexts/LoadingContext";
 import MovieService from "../api/services/MovieService";
 import axios from "axios";
+import Section from "../Components/Section";
+import SectionList from "../Components/SectionList";
 
 interface MovieFetchData {
   dates: {
@@ -35,6 +37,10 @@ interface MovieFetchDataResult {
   overview: string;
 }
 
+const Container = styled.div`
+  /* padding: 20px; */
+`;
+
 const Wrapper = styled.div`
   background-color: black;
 `;
@@ -47,7 +53,7 @@ const Loader = styled.div`
 `;
 
 const Banner = styled.div<{ bgPhoto: string }>`
-  height: 100vh;
+  /* height: 100vh; */
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -198,17 +204,16 @@ function Home() {
   const { scrollY } = useViewportScroll();
   const moviePathMatch: PathMatch<string> | null = useMatch("/movies/:id");
   const loadingDispatch = useLoadingDispatch();
-  const API_KEY = "04c96827c11e080830f0c0b8d3a94fd6";
-  const BASE_PATH = "https://api.themoviedb.org/3";
-
-  const [moviedata, setData] = useState<MovieFetchData>();
+  const [nowPlaying, setNowPlaying] = useState<any>();
+  const [upcoming, setUpcoming] = useState([]);
+  const [popular, setPopular] = useState([]);
 
   // console.log(moviePathMatch);
-  const { data, isLoading } = useQuery<IGetMoviesResult>(
-    ["movies", "nowPlay"],
-    getMovies
-  );
-  /* console.log(data, isLoading); */
+  // const { data, isLoading } = useQuery<IGetMoviesResult>(
+  //   ["movies", "nowPlay"],
+  //   getMovies
+  // );
+  // console.log(data, isLoading);
   const [index, setIndex] = useState(0);
   const [leaving, setLeaving] = useState(false);
   const onBoxClicked = (movieId: number) => {
@@ -219,10 +224,10 @@ function Home() {
   };
 
   const increaseIndex = () => {
-    if (data) {
+    if (nowPlaying) {
       if (leaving) return;
       toggleLeaving();
-      const totalMovies = data.results.length - 1;
+      const totalMovies = nowPlaying.results.length - 1;
       const maxIndex = Math.floor(totalMovies / offset) - 1;
       setIndex((prev) => (prev === maxIndex ? 0 : prev + 1));
     }
@@ -232,8 +237,12 @@ function Home() {
 
   const clickedMovie =
     moviePathMatch?.params.id &&
-    data?.results.find((movie) => movie.id + "" === moviePathMatch.params.id);
+    nowPlaying?.results.find(
+      (movie: any) => movie.id + "" === moviePathMatch.params.id
+    );
   /* console.log(clickedMovie) */
+
+  console.log(nowPlaying);
 
   useEffect(() => {
     _fetData();
@@ -242,17 +251,14 @@ function Home() {
   const _fetData = async () => {
     try {
       showLoading(loadingDispatch);
-      // const response = await MovieService.getNewMovies();
-      // console.log(
-      //   "🚀 ~ file: Home.tsx ~ line 222 ~ const_fetData= ~ response",
-      //   response
-      // );
-
-      await axios
-        .get(`${BASE_PATH}/movie/now_playing?api_key=${API_KEY}`)
-        .then((res) => {
-          setData(res.data);
-        });
+      const response = await MovieService.getNewMovies();
+      setNowPlaying(response.data);
+      // console.log(data);
+      // await axios
+      //   .get(`${BASE_PATH}/movie/now_playing?api_key=${API_KEY}`)
+      //   .then((res) => {
+      //     setData(res.data);
+      //   });
     } catch (error) {
       console.log("error:", error);
     } finally {
@@ -263,20 +269,42 @@ function Home() {
 
   return (
     <Wrapper>
-      {isLoading ? (
+      {0 ? (
         <></>
       ) : (
         <>
-          <Header />
-          <Banner
-            onClick={increaseIndex}
-            bgPhoto={makeImagePath(data?.results[0].backdrop_path || "")}
-          >
-            <Title>{data?.results[0].title}</Title>
-            <Overview>{data?.results[0].overview}</Overview>
-          </Banner>
+          <Container>
+            <Header />
 
-          <Slider>
+            {/* <Banner
+              onClick={increaseIndex}
+              bgPhoto={makeImagePath(
+                nowPlaying?.results[0].backdrop_path || ""
+              )}
+            >
+              <Title>{nowPlaying?.results[0].title}</Title>
+              <Overview>{nowPlaying?.results[0].overview}</Overview>
+            </Banner> */}
+            <Section title="Now Playing ">
+              {nowPlaying?.results?.map((movie: any) => {
+                return (
+                  <SectionList
+                    key={movie.id}
+                    id={movie.id}
+                    title={movie.original_title}
+                    imageUrl={movie.poster_path}
+                    rating={movie.vote_average}
+                    isMovie={true}
+                    year={
+                      movie.release_date && movie.release_date.substring(0, 4)
+                    }
+                  />
+                );
+              })}
+            </Section>
+          </Container>
+
+          {/* <Slider>
             <AnimatePresence initial={false} onExitComplete={toggleLeaving}>
               <Row
                 transition={{ type: "tween", duration: 1 }}
@@ -339,7 +367,7 @@ function Home() {
                 </>
               ) : null}
             </AnimatePresence>
-          </Slider>
+          </Slider> */}
         </>
       )}
     </Wrapper>

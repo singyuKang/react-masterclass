@@ -57,11 +57,11 @@ export const loginEmail = async (email: string, password: string) => {
   // return signInWithEmailAndPassword(auth, email, password);
 };
 
-// export const sendEmail = () => {
-//   sendEmailVerification(auth.currentUser as any).then(() => {
-//     //Email verification Sent
-//   });
-// };
+export const sendEmail = () => {
+  sendEmailVerification(auth.currentUser as any).then(() => {
+    //Email verification Sent
+  });
+};
 
 export const getToken = () => {
   // Firebase
