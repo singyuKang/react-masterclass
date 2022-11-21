@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { useMatch, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import { logOut } from "../fBase";
 
 const Nav = styled(motion.nav)`
   display: flex;
@@ -53,6 +54,7 @@ const Item = styled.li`
 `;
 
 const Search = styled.form`
+  margin-right: 50px;
   color: white;
   svg {
     height: 25px;
@@ -205,6 +207,16 @@ function Header() {
             placeholder="Search"
           />
         </Search>
+        <Col>
+          <div
+            onClick={() => {
+              logOut();
+              navigate("/");
+            }}
+          >
+            LogOut
+          </div>
+        </Col>
       </Col>
     </Nav>
   );

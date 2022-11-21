@@ -38,7 +38,7 @@ interface MovieFetchDataResult {
 }
 
 const Container = styled.div`
-  /* width: 100%; */
+  width: 100%;
   height: 100%;
   background-color: black;
   /* padding: 20px; */

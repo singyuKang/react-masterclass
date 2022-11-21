@@ -8,6 +8,7 @@ import {
   sendSignInLinkToEmail,
   signInWithEmailAndPassword,
 } from "firebase/auth";
+import { Navigate, useNavigate, useNavigation } from "react-router-dom";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -48,7 +49,22 @@ export const loginEmail = async (email: string, password: string) => {
     "🚀 ~ file: fBase.ts ~ line 47 ~ loginEmail ~ emailVerified",
     emailVerified
   );
+  // auth.onAuthStateChanged((user: any) => {
+  //   console.log(
+  //     "🚀 ~ file: fBase.ts ~ line 53 ~ auth.onAuthStateChanged ~ user",
+  //     user
+  //   );
+  //   if (user.user.emailVerified) {
+  //     console.log("email verification");
+  //   } else {
+  //     console.log("bug");
+  //   }
+  // });
   if (emailVerified === true) {
+    console.log("emailVerifired true");
+    return signInWithEmailAndPassword(auth, email, password);
+  } else if (emailVerified === undefined) {
+    console.log("Logout and login");
     return signInWithEmailAndPassword(auth, email, password);
   } else {
     throw "auth/emailVerified";
@@ -57,9 +73,37 @@ export const loginEmail = async (email: string, password: string) => {
   // return signInWithEmailAndPassword(auth, email, password);
 };
 
+//Email Send
 export const sendEmail = () => {
   sendEmailVerification(auth.currentUser as any).then(() => {
     //Email verification Sent
+  });
+};
+
+//Login Check
+export const checkLogin = () => {
+  // app.auth().onA
+  auth.onAuthStateChanged((user) => {
+    console.log(user);
+  });
+};
+
+//Logout
+
+export const logOut = () => {
+  auth.signOut().then(() => {
+    try {
+      //Signout successful
+      console.log(
+        "🚀 ~ file: fBase.ts ~ line 84 ~ auth.signOut SignoutComplete"
+      );
+    } catch (error) {
+      console.log(
+        "🚀 ~ file: fBase.ts ~ line 84 ~ auth.signOut ~ error",
+        error
+      );
+      //Signout Error
+    }
   });
 };
 

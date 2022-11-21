@@ -5,7 +5,7 @@ import { ImageConstants } from "../utils";
 import { themegloabalStyle } from "../themegloabalStyle";
 import colors from "../colors";
 import { useSelector, useDispatch } from "react-redux";
-import { loginEmail, signupEmail } from "../fBase";
+import { checkLogin, loginEmail, signupEmail } from "../fBase";
 import { redirect, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import {
@@ -143,13 +143,15 @@ function Login() {
 
   const onSubmit = async (event: any) => {
     event.preventDefault();
-    console.log("hello");
+    // console.log("hello");
     try {
       let data;
 
       //Log in
       showLoading(loadingDispatch);
+      // checkLogin();
       data = await loginEmail(email, password);
+      // checkLogin();
       hideLoading(loadingDispatch);
       console.log("data : : : :: ", data);
 
