@@ -154,6 +154,7 @@ function Login() {
       // checkLogin();
       hideLoading(loadingDispatch);
       console.log("data : : : :: ", data);
+      console.log("🚀 ~ file: Login.tsx ~ line 157 ~ onSubmit ~ data", data);
 
       navigate("/home");
     } catch (error: any) {

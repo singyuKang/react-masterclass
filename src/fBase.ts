@@ -3,12 +3,16 @@ import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import {
   createUserWithEmailAndPassword,
+  EmailAuthProvider,
   getAuth,
+  reauthenticateWithCredential,
   sendEmailVerification,
   sendSignInLinkToEmail,
   signInWithEmailAndPassword,
+  User,
 } from "firebase/auth";
 import { Navigate, useNavigate, useNavigation } from "react-router-dom";
+import { stringify } from "querystring";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -28,7 +32,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 
 //auth
-const auth = getAuth();
+const auth = getAuth(app);
 
 //email 회원가입
 export const signupEmail = async (email: string, password: string) => {
@@ -80,6 +84,13 @@ export const sendEmail = () => {
   });
 };
 
+//Email reauthentication
+export const reAuthentication = async (email: string, password: string) => {
+  // auth.currentUser.
+  const currentUser = auth.currentUser;
+  const credential = EmailAuthProvider.credential(email, password);
+  await reauthenticateWithCredential(currentUser as User, credential);
+};
 //Login Check
 export const checkLogin = () => {
   // app.auth().onA
@@ -94,6 +105,7 @@ export const logOut = () => {
   auth.signOut().then(() => {
     try {
       //Signout successful
+      localStorage.removeItem("token");
       console.log(
         "🚀 ~ file: fBase.ts ~ line 84 ~ auth.signOut SignoutComplete"
       );
@@ -106,10 +118,25 @@ export const logOut = () => {
     }
   });
 };
-
-export const getToken = () => {
-  // Firebase
+// utils/token.tsx - 로컬 스토리지에 토큰 저장
+export const setToken = (token: string) => {
+  localStorage.setItem("token", token);
 };
+
+// utils/token.tsx - 토큰의 만료 여부를 확인하고, 기존의/갱신된 토큰을 로컬스토리지에 저장 후 전달
+export function getToken() {
+  const auth = getAuth();
+  auth.onIdTokenChanged(function (user) {
+    if (user) {
+      user.getIdToken().then((token) => {
+        console.log("my token : ", token);
+        setToken(token);
+      });
+    }
+  });
+  const token = localStorage.getItem("token") ?? "";
+  return token;
+}
 
 // export const sendEmail = (email:string, ) =>{
 //   return sendSignInLinkToEmail(auth, email, actionCodeSettings)

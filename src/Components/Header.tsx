@@ -214,7 +214,7 @@ function Header() {
               navigate("/");
             }}
           >
-            LogOut
+            Log Out
           </div>
         </Col>
       </Col>
