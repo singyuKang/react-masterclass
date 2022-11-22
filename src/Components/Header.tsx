@@ -177,7 +177,7 @@ function Header() {
             </Link>
           </Item>
           <Item>
-            <Link to="tv">
+            <Link to="/tv">
               Tv Shows {tvMatch && <Circle layoutId="circle" />}
             </Link>
           </Item>
@@ -208,14 +208,17 @@ function Header() {
           />
         </Search>
         <Col>
-          <div
+          {/* <div
             onClick={() => {
               logOut();
               navigate("/");
             }}
           >
             Log Out
-          </div>
+          </div> */}
+          <Link to={`/`}>
+            <span>Log Out</span>
+          </Link>
         </Col>
       </Col>
     </Nav>

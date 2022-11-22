@@ -28,6 +28,38 @@ const MovieService = {
     return response;
   },
 
+  //TopRated tv data
+  getTopRatedTv: async () => {
+    const response = await instance.get(
+      `${BASE_PATH}/tv/top_rated?api_key=${API_KEY}`
+    );
+    return response;
+  },
+
+  //popular tv data
+  getPopularTv: async () => {
+    const response = await instance.get(
+      `${BASE_PATH}/tv/popular?api_key=${API_KEY}`
+    );
+    return response;
+  },
+
+  //airingToday tv data
+  getAiringTodayTv: async () => {
+    const response = await instance.get(
+      `${BASE_PATH}/tv/airing_today?api_key=${API_KEY}`
+    );
+    return response;
+  },
+
+  //getTvDetail data
+  getTvDetail: async (id: string) => {
+    const response = await instance.get(
+      `${BASE_PATH}/tv/${id}/?api_key=${API_KEY}`
+    );
+  },
+
+  //getMovieDetail data
   getMovieDetail: async (id: string) => {
     const response = await instance.get(
       `${BASE_PATH}/movie/${id}/?api_key=${API_KEY}`

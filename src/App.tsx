@@ -6,6 +6,7 @@ import Tv from "./Routes/Tv";
 import Header from "./Components/Header";
 import Login from "./Routes/Login";
 import SignUp from "./Routes/Signup";
+import MovieDetail from "./Routes/MovieDetail";
 
 function App() {
   return (
@@ -15,9 +16,8 @@ function App() {
         <Route path="/search" element={<Search />}></Route>
         <Route path="/" element={<Login />}></Route>
         <Route path="/signup" element={<SignUp />}></Route>
-        <Route path="/home" element={<Home />}>
-          <Route path="movies/:id" element={<Home />}></Route>
-        </Route>
+        <Route path="/movie/:id" element={<MovieDetail />} />
+        <Route path="/home" element={<Home />}></Route>
       </Routes>
     </BrowserRouter>
   );

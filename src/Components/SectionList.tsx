@@ -84,7 +84,7 @@ const SectionList = ({
   title,
   rating,
   year,
-  isMovie = false,
+  isMovie = true,
 }: Props) => {
   return (
     <Link to={isMovie ? `/movie/${id}` : `/show/${id}`}>
