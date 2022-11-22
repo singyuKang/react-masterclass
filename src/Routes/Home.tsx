@@ -213,7 +213,7 @@ const offset = 6;
 function Home() {
   const navigate = useNavigate();
   const { scrollY } = useViewportScroll();
-  const moviePathMatch: PathMatch<string> | null = useMatch("/movies/:id");
+  const moviePathMatch: PathMatch<string> | null = useMatch("/movie/:id");
   const loadingDispatch = useLoadingDispatch();
   const [nowPlaying, setNowPlaying] = useState<any>();
   const [upcoming, setUpcoming] = useState<any>();

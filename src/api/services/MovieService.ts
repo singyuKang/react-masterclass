@@ -53,16 +53,17 @@ const MovieService = {
   },
 
   //getTvDetail data
-  getTvDetail: async (id: string) => {
+  getTvDetail: async (id: number) => {
     const response = await instance.get(
-      `${BASE_PATH}/tv/${id}/?api_key=${API_KEY}`
+      `${BASE_PATH}/tv/${id}?api_key=${API_KEY}`
     );
+    return response;
   },
 
   //getMovieDetail data
-  getMovieDetail: async (id: string) => {
+  getMovieDetail: async (movie_id: number) => {
     const response = await instance.get(
-      `${BASE_PATH}/movie/${id}/?api_key=${API_KEY}`
+      `${BASE_PATH}/movie/${movie_id}?api_key=${API_KEY}`
     );
     return response;
   },

@@ -221,7 +221,7 @@ function Tv() {
   const [popular, setPopular] = useState<any>([]);
   const [airing, setAiring] = useState<any>();
 
-  console.log(topRated);
+  // console.log(topRated);
   // console.log(popular);
   // console.log(airing);
 
