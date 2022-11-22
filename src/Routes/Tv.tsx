@@ -57,14 +57,22 @@ const Loader = styled.div`
 `;
 
 const Banner = styled.div<{ bgPhoto: string }>`
-  /* height: 100vh; */
+  height: 500px;
+  margin-right: 50px;
+  margin-left: 50px;
+  margin-top: 60px;
+  margin-bottom: 50px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   padding: 60px;
-  background-image: linear-gradient(rgba(0, 0, 0, 1), rgba(0, 0, 0, 0)),
-    url(${(props) => props.bgPhoto});
+  background-image: url(${(props) => props.bgPhoto});
+  /* background-size: contain; */
+  /* background-repeat: no-repeat; */
+
   background-size: cover;
+
+  border-radius: 10px;
 `;
 
 const Title = styled.h2`
@@ -214,8 +222,8 @@ function Tv() {
   const [airing, setAiring] = useState<any>();
 
   console.log(topRated);
-  console.log(popular);
-  console.log(airing);
+  // console.log(popular);
+  // console.log(airing);
 
   useEffect(() => {
     // console.log(
@@ -239,7 +247,7 @@ function Tv() {
       showLoading(loadingDispatch);
       const getTopRated = await MovieService.getTopRatedTv();
       setTopRated(getTopRated.data);
-      console.log(topRated);
+      // console.log(topRated);
       // setNowPlaying(response.data);
 
       const getAiringTv = await MovieService.getAiringTodayTv();
@@ -264,9 +272,57 @@ function Tv() {
 
   return (
     <>
-      <Container>{navHeaderShow ? <Header /> : <></>}</Container>
-      <Header />
-      <h1>Tv</h1>
+      <Container>
+        {navHeaderShow ? <Header /> : <></>}
+        <Banner
+          bgPhoto={makeImagePath(topRated?.results[0].backdrop_path || "")}
+        ></Banner>
+        <Section title="Top Rated">
+          {topRated?.results?.map((movie: any) => {
+            return (
+              <SectionList
+                key={movie.id}
+                id={movie.id}
+                title={movie.original_title}
+                imageUrl={movie.poster_path}
+                rating={movie.vote_average}
+                isMovie={true}
+                year={movie.release_date && movie.release_date.substring(0, 4)}
+              />
+            );
+          })}
+        </Section>
+        <Section title="Popular ">
+          {popular?.results?.map((movie: any) => {
+            return (
+              <SectionList
+                key={movie.id}
+                id={movie.id}
+                title={movie.original_title}
+                imageUrl={movie.poster_path}
+                rating={movie.vote_average}
+                isMovie={true}
+                year={movie.release_date && movie.release_date.substring(0, 4)}
+              />
+            );
+          })}
+        </Section>
+        <Section title="Airing ">
+          {airing?.results?.map((movie: any) => {
+            return (
+              <SectionList
+                key={movie.id}
+                id={movie.id}
+                title={movie.original_title}
+                imageUrl={movie.poster_path}
+                rating={movie.vote_average}
+                isMovie={true}
+                year={movie.release_date && movie.release_date.substring(0, 4)}
+              />
+            );
+          })}
+        </Section>
+      </Container>
     </>
   );
 }

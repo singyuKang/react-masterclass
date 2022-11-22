@@ -56,14 +56,22 @@ const Loader = styled.div`
 `;
 
 const Banner = styled.div<{ bgPhoto: string }>`
-  /* height: 100vh; */
+  height: 500px;
+  margin-right: 50px;
+  margin-left: 50px;
+  margin-top: 60px;
+  margin-bottom: 50px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   padding: 60px;
-  background-image: linear-gradient(rgba(0, 0, 0, 1), rgba(0, 0, 0, 0)),
-    url(${(props) => props.bgPhoto});
+  /* resize: ; */
+
+  background-image: url(${(props) => props.bgPhoto});
   background-size: cover;
+  /* background-size: contain; */
+  /* background-repeat: no-repeat; */
+  border-radius: 10px;
 `;
 
 const Title = styled.h2`
@@ -302,15 +310,12 @@ function Home() {
           {/* <AnimatePresence initial={false} onExitComplete={toggleLeaving}> */}
           <Container>
             {navHeaderShow ? <Header /> : <></>}
-            {/* <Banner
+            <Banner
               onClick={increaseIndex}
               bgPhoto={makeImagePath(
                 nowPlaying?.results[0].backdrop_path || ""
               )}
-            >
-              <Title>{nowPlaying?.results[0].title}</Title>
-              <Overview>{nowPlaying?.results[0].overview}</Overview>
-            </Banner> */}
+            ></Banner>
             <Section title="Now Playing ">
               {nowPlaying?.results?.map((movie: any) => {
                 return (
@@ -362,7 +367,7 @@ function Home() {
                 );
               })}
             </Section>
-            {/* <Slider>
+            <Slider>
               <AnimatePresence initial={false} onExitComplete={toggleLeaving}>
                 <Row
                   transition={{ type: "tween", duration: 1 }}
@@ -425,7 +430,7 @@ function Home() {
                   </>
                 ) : null}
               </AnimatePresence>
-            </Slider> */}
+            </Slider>
           </Container>
           {/* </AnimatePresence> */}
         </>
