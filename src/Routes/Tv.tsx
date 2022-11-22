@@ -283,11 +283,13 @@ function Tv() {
               <SectionList
                 key={movie.id}
                 id={movie.id}
-                title={movie.original_title}
+                title={movie.name}
                 imageUrl={movie.poster_path}
                 rating={movie.vote_average}
                 isMovie={true}
-                year={movie.release_date && movie.release_date.substring(0, 4)}
+                year={
+                  movie.first_air_date && movie.first_air_date.substring(0, 4)
+                }
               />
             );
           })}
@@ -298,11 +300,13 @@ function Tv() {
               <SectionList
                 key={movie.id}
                 id={movie.id}
-                title={movie.original_title}
+                title={movie.name}
                 imageUrl={movie.poster_path}
                 rating={movie.vote_average}
                 isMovie={true}
-                year={movie.release_date && movie.release_date.substring(0, 4)}
+                year={
+                  movie.first_air_date && movie.first_air_date.substring(0, 4)
+                }
               />
             );
           })}
@@ -313,11 +317,13 @@ function Tv() {
               <SectionList
                 key={movie.id}
                 id={movie.id}
-                title={movie.original_title}
+                title={movie.name}
                 imageUrl={movie.poster_path}
                 rating={movie.vote_average}
                 isMovie={true}
-                year={movie.release_date && movie.release_date.substring(0, 4)}
+                year={
+                  movie.first_air_date && movie.first_air_date.substring(0, 4)
+                }
               />
             );
           })}

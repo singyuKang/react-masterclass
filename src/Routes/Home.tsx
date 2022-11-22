@@ -367,7 +367,7 @@ function Home() {
                 );
               })}
             </Section>
-            <Slider>
+            {/* <Slider>
               <AnimatePresence initial={false} onExitComplete={toggleLeaving}>
                 <Row
                   transition={{ type: "tween", duration: 1 }}
@@ -430,7 +430,7 @@ function Home() {
                   </>
                 ) : null}
               </AnimatePresence>
-            </Slider>
+            </Slider> */}
           </Container>
           {/* </AnimatePresence> */}
         </>
