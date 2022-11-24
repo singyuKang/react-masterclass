@@ -216,8 +216,11 @@ function Home() {
   const moviePathMatch: PathMatch<string> | null = useMatch("/movie/:id");
   const loadingDispatch = useLoadingDispatch();
   const [nowPlaying, setNowPlaying] = useState<any>();
+  // console.log("🚀 ~ file: Home.tsx ~ line 219 ~ Home ~ nowPlaying", nowPlaying);
   const [upcoming, setUpcoming] = useState<any>();
+  // console.log("🚀 ~ file: Home.tsx ~ line 221 ~ Home ~ upcoming", upcoming);
   const [popular, setPopular] = useState<any>([]);
+  // console.log("🚀 ~ file: Home.tsx ~ line 223 ~ Home ~ popular", popular);
 
   // console.log(moviePathMatch);
   // const { data, isLoading } = useQuery<IGetMoviesResult>(
@@ -311,7 +314,7 @@ function Home() {
           <Container>
             {navHeaderShow ? <Header /> : <></>}
             <Banner
-              onClick={increaseIndex}
+              // onClick={increaseIndex}
               bgPhoto={makeImagePath(
                 nowPlaying?.results[0].backdrop_path || ""
               )}

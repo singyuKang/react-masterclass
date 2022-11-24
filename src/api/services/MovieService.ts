@@ -63,7 +63,7 @@ const MovieService = {
   //getMovieDetail data
   getMovieDetail: async (movie_id: number) => {
     const response = await instance.get(
-      `${BASE_PATH}/movie/${movie_id}?api_key=${API_KEY}`
+      `/movie/${movie_id}?api_key=${API_KEY}`
     );
     return response;
   },
