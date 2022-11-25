@@ -48,14 +48,14 @@ const MovieDetail = () => {
     "🚀 ~ file: MovieDetail.tsx ~ line 20 ~ MovieDetail ~ moviePathMatch",
     parseInt(moviePathMatch?.params?.id as any)
   );
-  //   console.log(
-  //     "🚀 ~ file: MovieDetail.tsx ~ line 6 ~ MovieDetail ~ moviePathMatch",
-  //     moviePathMatch
-  //   );
-  //   console.log(
-  //     "🚀 ~ file: MovieDetail.tsx ~ line 6 ~ MovieDetail ~ moviePathMatch",
-  //     moviePathMatch?.params.id
-  //   );
+  console.log(
+    "🚀 ~ file: MovieDetail.tsx ~ line 6 ~ MovieDetail ~ moviePathMatch",
+    moviePathMatch
+  );
+  console.log(
+    "🚀 ~ file: MovieDetail.tsx ~ line 6 ~ MovieDetail ~ moviePathMatch",
+    moviePathMatch?.params.id
+  );
 
   useEffect(() => {
     // console.log("movie detail");
