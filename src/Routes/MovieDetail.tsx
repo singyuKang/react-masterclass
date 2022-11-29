@@ -101,13 +101,14 @@ const MovieDetail = () => {
   const loadingDispatch = useLoadingDispatch();
   const navigate = useNavigate();
   const [result, setResult] = useState<ResultData | any>();
+  const [recomendation, setRecomendation] = useState();
 
   const API_KEY = "04c96827c11e080830f0c0b8d3a94fd6";
   const BASE_PATH = "https://api.themoviedb.org/3";
-  console.log(
-    "🚀 ~ file: MovieDetail.tsx ~ line 15 ~ MovieDetail ~ result",
-    result
-  );
+  // console.log(
+  //   "🚀 ~ file: MovieDetail.tsx ~ line 15 ~ MovieDetail ~ result",
+  //   result
+  // );
 
   // console.log(
   //   "🚀 ~ file: MovieDetail.tsx ~ line 20 ~ MovieDetail ~ moviePathMatch",
@@ -131,21 +132,40 @@ const MovieDetail = () => {
     try {
       showLoading(loadingDispatch);
       const response = await MovieService.getMovieDetail(
-        parseInt(moviePathMatch?.params?.id as any)
+        parseInt(moviePathMatch?.params?.id as string)
       );
-
+      // console.log("pass");
       setResult(response.data);
+
+      const recomendationData = await MovieService.getMovieRecomendation(
+        parseInt(moviePathMatch?.params?.id as string)
+      );
+      setRecomendation(recomendationData.data);
+
+      console.log(recomendationData);
     } catch (error) {
       console.log("error:", error);
       const response = fetch(
         `${BASE_PATH}/movie/${parseInt(
-          moviePathMatch?.params?.id as any
+          moviePathMatch?.params?.id as string
         )}?api_key=${API_KEY}`
       )
         .then((response) => response.json())
         .then((data) => {
           console.log(data);
           setResult(data);
+        });
+
+      fetch(
+        `${BASE_PATH}/movie/${parseInt(
+          moviePathMatch?.params?.id as string
+        )}/recommendations?api_key=${API_KEY}`
+      )
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data);
+          setRecomendation(data);
+          // setResult(data);
         });
       // setResult(response.data);
     } finally {
@@ -156,7 +176,6 @@ const MovieDetail = () => {
   return (
     <>
       <Header />
-
       <Container>
         <BackDrop bgImage={makeImagePath(result?.backdrop_path)} />
         <LeftImage bgImage={makeImagePath(result?.poster_path)} />
