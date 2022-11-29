@@ -75,6 +75,14 @@ const MovieService = {
     );
     return response;
   },
+
+  //getMovieDetailCredit
+  getMovieCredit: async (movie_id: number) => {
+    const response = await instance.get(
+      `${BASE_PATH}/movie/${movie_id}/credits?api_key=${API_KEY}`
+    );
+    return response;
+  },
 };
 
 export default MovieService;

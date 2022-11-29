@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { motion, AnimatePresence } from "framer-motion";
 
 const Container = styled.div`
   font-size: 12px;
@@ -50,10 +51,11 @@ const Rating = styled.span`
   transition: opacity 0.1s linear;
 `;
 
-const ImageContainer = styled.div`
+const ImageContainer = styled(motion.div)`
   margin-bottom: 5px;
   position: relative;
   &:hover {
+    /* scale: 1.5; */
     ${Image} {
       opacity: 1;
     }
@@ -89,7 +91,7 @@ const SectionList = ({
   return (
     <Link to={isMovie ? `/movie/${id}` : `/show/${id}`}>
       <Container>
-        <ImageContainer>
+        <ImageContainer whileHover={{ scale: 1.3 }}>
           <Image bgPhoto={`https://image.tmdb.org/t/p/w300${imageUrl}`}>
             <Title>{title}</Title>
             <Year>{year}</Year>

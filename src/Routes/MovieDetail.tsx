@@ -61,9 +61,14 @@ const Container = styled.div`
 
 const ContentBox = styled.div`
   background-color: black;
+  display: flex;
+  flex-direction: column;
   opacity: 0.7;
   padding-left: 20px;
+  padding-right: 20px;
   padding-top: 20px;
+  padding-bottom: 20px;
+
   width: 90%;
   height: 100%;
   border-radius: 5px;
@@ -80,6 +85,54 @@ const Title = styled.h3`
 const ItemContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
+  /* background-color: #6d4c4c; */
+`;
+
+const SelectContainer = styled.div`
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  /* background-color: #802929; */
+`;
+
+const SelectBox = styled.div`
+  display: flex;
+`;
+
+const BoxContainer = styled.div`
+  position: absolute;
+  background-color: black;
+  opacity: 0.5;
+  z-index: 100;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+`;
+
+const Box = styled.div`
+  position: absolute;
+  border-radius: 5px;
+  z-index: 10000;
+  top: 50;
+  left: 50;
+  width: 90%;
+  height: 60%;
+  background-color: white;
+`;
+
+const Select = styled.div`
+  display: flex;
+  margin-right: 50px;
+  justify-content: center;
+  align-items: center;
+  width: 100px;
+  font-weight: 500;
+  border-radius: 5px;
+  height: 50px;
+  background-color: #371608;
 `;
 
 const Item = styled.span`
@@ -101,7 +154,10 @@ const MovieDetail = () => {
   const loadingDispatch = useLoadingDispatch();
   const navigate = useNavigate();
   const [result, setResult] = useState<ResultData | any>();
+  const [boxshow, setBoxshow] = useState(false);
+
   const [recomendation, setRecomendation] = useState();
+  const [credit, setCredit] = useState();
 
   const API_KEY = "04c96827c11e080830f0c0b8d3a94fd6";
   const BASE_PATH = "https://api.themoviedb.org/3";
@@ -142,7 +198,10 @@ const MovieDetail = () => {
       );
       setRecomendation(recomendationData.data);
 
-      console.log(recomendationData);
+      const creditData = await MovieService.getMovieCredit(
+        parseInt(moviePathMatch?.params?.id as string)
+      );
+      setCredit(creditData.data);
     } catch (error) {
       console.log("error:", error);
       const response = fetch(
@@ -152,7 +211,7 @@ const MovieDetail = () => {
       )
         .then((response) => response.json())
         .then((data) => {
-          console.log(data);
+          // console.log(data);
           setResult(data);
         });
 
@@ -163,7 +222,7 @@ const MovieDetail = () => {
       )
         .then((response) => response.json())
         .then((data) => {
-          console.log(data);
+          // console.log(data);
           setRecomendation(data);
           // setResult(data);
         });
@@ -177,6 +236,12 @@ const MovieDetail = () => {
     <>
       <Header />
       <Container>
+        {boxshow ? (
+          <>
+            <BoxContainer />
+            <Box></Box>
+          </>
+        ) : null}
         <BackDrop bgImage={makeImagePath(result?.backdrop_path)} />
         <LeftImage bgImage={makeImagePath(result?.poster_path)} />
         <ContentBox>
@@ -203,6 +268,18 @@ const MovieDetail = () => {
             </Item>
             <ItemOverview>{result?.overview}</ItemOverview>
           </ItemContainer>
+          <SelectContainer>
+            <SelectBox>
+              <Select
+                onMouseOver={() => {
+                  setBoxshow(true);
+                }}
+              >
+                Trailer
+              </Select>
+              <Select>Film</Select>
+            </SelectBox>
+          </SelectContainer>
         </ContentBox>
       </Container>
     </>
