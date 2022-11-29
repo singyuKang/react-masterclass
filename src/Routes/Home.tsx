@@ -69,6 +69,8 @@ const Banner = styled.div<{ bgPhoto: string }>`
 
   background-image: url(${(props) => props.bgPhoto});
   background-size: cover;
+  background-position: center center;
+
   /* background-size: contain; */
   /* background-repeat: no-repeat; */
   border-radius: 10px;
