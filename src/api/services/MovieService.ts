@@ -60,6 +60,22 @@ const MovieService = {
     return response;
   },
 
+  //getTvDetailCredit
+  getTvCredit: async (movie_id: number) => {
+    const response = await instance.get(
+      `${BASE_PATH}/tv/${movie_id}/credits?api_key=${API_KEY}`
+    );
+    return response;
+  },
+
+  //getTvDetailRecomendation data
+  getTvRecomendation: async (movie_id: number) => {
+    const response = await instance.get(
+      `${BASE_PATH}/tv/${movie_id}/recommendations?api_key=${API_KEY}`
+    );
+    return response;
+  },
+
   //getMovieDetail data
   getMovieDetail: async (movie_id: number) => {
     const response = await instance.get(

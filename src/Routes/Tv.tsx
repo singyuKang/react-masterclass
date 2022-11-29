@@ -286,7 +286,7 @@ function Tv() {
                 title={movie.name}
                 imageUrl={movie.poster_path}
                 rating={movie.vote_average}
-                isMovie={true}
+                isMovie={false}
                 year={
                   movie.first_air_date && movie.first_air_date.substring(0, 4)
                 }
@@ -303,7 +303,7 @@ function Tv() {
                 title={movie.name}
                 imageUrl={movie.poster_path}
                 rating={movie.vote_average}
-                isMovie={true}
+                isMovie={false}
                 year={
                   movie.first_air_date && movie.first_air_date.substring(0, 4)
                 }
@@ -320,7 +320,7 @@ function Tv() {
                 title={movie.name}
                 imageUrl={movie.poster_path}
                 rating={movie.vote_average}
-                isMovie={true}
+                isMovie={false}
                 year={
                   movie.first_air_date && movie.first_air_date.substring(0, 4)
                 }

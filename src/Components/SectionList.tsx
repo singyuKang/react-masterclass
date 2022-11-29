@@ -80,16 +80,9 @@ type Props = {
   isMovie: boolean;
 };
 
-const SectionList = ({
-  id,
-  imageUrl,
-  title,
-  rating,
-  year,
-  isMovie = true,
-}: Props) => {
+const SectionList = ({ id, imageUrl, title, rating, year, isMovie }: Props) => {
   return (
-    <Link to={isMovie ? `/movie/${id}` : `/show/${id}`}>
+    <Link to={`/movie/${id}`} state={{ isMovie: isMovie }}>
       <Container>
         <ImageContainer whileHover={{ scale: 1.3 }}>
           <Image bgPhoto={`https://image.tmdb.org/t/p/w300${imageUrl}`}>

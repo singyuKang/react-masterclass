@@ -1,5 +1,10 @@
 import { useEffect, useState } from "react";
-import { PathMatch, useMatch, useNavigate } from "react-router-dom";
+import {
+  PathMatch,
+  useLocation,
+  useMatch,
+  useNavigate,
+} from "react-router-dom";
 import styled from "styled-components";
 import MovieService from "../api/services/MovieService";
 import Header from "../Components/Header";
@@ -151,6 +156,7 @@ const Divider = styled.span`
 
 const MovieDetail = () => {
   const moviePathMatch = useMatch("/movie/:id");
+  const movieLocation = useLocation();
   const loadingDispatch = useLoadingDispatch();
   const navigate = useNavigate();
   const [result, setResult] = useState<ResultData | any>();
@@ -186,22 +192,45 @@ const MovieDetail = () => {
 
   const _fetData = async () => {
     try {
-      showLoading(loadingDispatch);
-      const response = await MovieService.getMovieDetail(
-        parseInt(moviePathMatch?.params?.id as string)
-      );
-      // console.log("pass");
-      setResult(response.data);
+      if (movieLocation.state.isMovie === true) {
+        showLoading(loadingDispatch);
+        const response = await MovieService.getMovieDetail(
+          parseInt(moviePathMatch?.params?.id as string)
+        );
+        // console.log("pass");
+        setResult(response.data);
 
-      const recomendationData = await MovieService.getMovieRecomendation(
-        parseInt(moviePathMatch?.params?.id as string)
-      );
-      setRecomendation(recomendationData.data);
+        const recomendationData = await MovieService.getMovieRecomendation(
+          parseInt(moviePathMatch?.params?.id as string)
+        );
+        setRecomendation(recomendationData.data);
 
-      const creditData = await MovieService.getMovieCredit(
-        parseInt(moviePathMatch?.params?.id as string)
-      );
-      setCredit(creditData.data);
+        const creditData = await MovieService.getMovieCredit(
+          parseInt(moviePathMatch?.params?.id as string)
+        );
+        setCredit(creditData.data);
+      } else {
+        showLoading(loadingDispatch);
+        const response = await MovieService.getTvDetail(
+          parseInt(moviePathMatch?.params?.id as string)
+        );
+        console.log(
+          "🚀 ~ file: MovieDetail.tsx ~ line 222 ~ const_fetData= ~ response",
+          response
+        );
+        // console.log("pass");
+        setResult(response.data);
+
+        const recomendationData = await MovieService.getTvRecomendation(
+          parseInt(moviePathMatch?.params?.id as string)
+        );
+        setRecomendation(recomendationData.data);
+
+        const creditData = await MovieService.getTvCredit(
+          parseInt(moviePathMatch?.params?.id as string)
+        );
+        setCredit(creditData.data);
+      }
     } catch (error) {
       console.log("error:", error);
       const response = fetch(
