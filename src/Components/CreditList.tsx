@@ -11,8 +11,9 @@ const Container = styled.div`
 
 const Image = styled.div<{ bgPhoto: string }>`
   background-image: url(${(props) => props.bgPhoto});
-  height: 150px;
-  width: 75px;
+  /* height: 150px; */
+  /* width: 75px; */
+  min-height: 200px;
   background-size: cover;
   background-color: black;
   border-radius: 4px;

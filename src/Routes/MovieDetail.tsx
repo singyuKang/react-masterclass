@@ -185,16 +185,30 @@ const MovieDetail = () => {
   const [credit, setCredit] = useState<any>();
   console.log("🚀 ~ file: MovieDetail.tsx:172 ~ MovieDetail ~ credit", credit);
 
-  const settings = {
+  const castsettings = {
     // dots: true,
     centerMode: true,
     infinite: true,
     speed: 2000,
-    slidesToShow: 8,
+    slidesToShow: credit?.cast?.length < 8 ? credit?.cast?.length : 8,
     autoplay: true,
     // speed: 2000,
     autoplaySpeed: 2000,
-    cssEase: "linear",
+    // cssEase: "linear",
+    // slidesToScroll: 20,
+    // slidesPerRow: 2,
+  };
+
+  const crewsettings = {
+    // dots: true,
+    centerMode: true,
+    infinite: true,
+    speed: 2000,
+    slidesToShow: credit?.crew?.length < 8 ? credit?.crew?.length : 8,
+    autoplay: true,
+    // speed: 2000,
+    autoplaySpeed: 2000,
+    // cssEase: "linear",
     // slidesToScroll: 20,
     // slidesPerRow: 2,
   };
@@ -319,7 +333,7 @@ const MovieDetail = () => {
                 </div>
               </div>
               <Text>Cast</Text>
-              <Slider {...settings}>
+              <Slider {...castsettings}>
                 {credit?.cast?.map((cast: any, id: number) => {
                   return (
                     <CreditList
@@ -333,7 +347,7 @@ const MovieDetail = () => {
                 })}
               </Slider>
               <Text>Crew</Text>
-              <Slider {...settings}>
+              <Slider {...crewsettings}>
                 {credit?.crew?.map((cast: any, id: number) => {
                   return (
                     <CreditList
