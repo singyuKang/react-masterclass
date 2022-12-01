@@ -14,6 +14,10 @@ import {
   useLoadingDispatch,
 } from "../contexts/LoadingContext";
 import { makeImagePath } from "../utils";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import Slider from "react-slick";
+import CreditList from "../Components/CreditList";
 
 interface Genres {
   id: number;
@@ -119,13 +123,15 @@ const BoxContainer = styled.div`
 
 const Box = styled.div`
   position: absolute;
+  display: flex;
+  flex-direction: column;
   border-radius: 5px;
   z-index: 10000;
   top: 50;
   left: 50;
   width: 90%;
   height: 60%;
-  background-color: white;
+  background-color: #585353;
 `;
 
 const Select = styled.div`
@@ -154,6 +160,19 @@ const Divider = styled.span`
   margin: 0px 10px;
 `;
 
+const Text = styled.div`
+  padding-left: 12px;
+  color: #e7eded;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 6px;
+  display: flex;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  /* position: relative; */
+  z-index: 0;
+`;
+
 const MovieDetail = () => {
   const moviePathMatch = useMatch("/movie/:id");
   const movieLocation = useLocation();
@@ -163,7 +182,22 @@ const MovieDetail = () => {
   const [boxshow, setBoxshow] = useState(false);
 
   const [recomendation, setRecomendation] = useState();
-  const [credit, setCredit] = useState();
+  const [credit, setCredit] = useState<any>();
+  console.log("🚀 ~ file: MovieDetail.tsx:172 ~ MovieDetail ~ credit", credit);
+
+  const settings = {
+    // dots: true,
+    centerMode: true,
+    infinite: true,
+    speed: 2000,
+    slidesToShow: 8,
+    autoplay: true,
+    // speed: 2000,
+    autoplaySpeed: 2000,
+    cssEase: "linear",
+    // slidesToScroll: 20,
+    // slidesPerRow: 2,
+  };
 
   const API_KEY = "04c96827c11e080830f0c0b8d3a94fd6";
   const BASE_PATH = "https://api.themoviedb.org/3";
@@ -268,7 +302,50 @@ const MovieDetail = () => {
         {boxshow ? (
           <>
             <BoxContainer />
-            <Box></Box>
+            <Box>
+              <div
+                style={{
+                  display: "flex",
+                  // backgroundColor: "black",
+                  justifyContent: "flex-end",
+                }}
+              >
+                <div
+                  onClick={() => {
+                    setBoxshow(false);
+                  }}
+                >
+                  x {"    "}
+                </div>
+              </div>
+              <Text>Cast</Text>
+              <Slider {...settings}>
+                {credit?.cast?.map((cast: any, id: number) => {
+                  return (
+                    <CreditList
+                      // id={id}
+                      key={id}
+                      known_for_department={cast.known_for_department}
+                      imageUrl={cast.profile_path}
+                      name={cast.name}
+                    />
+                  );
+                })}
+              </Slider>
+              <Text>Crew</Text>
+              <Slider {...settings}>
+                {credit?.crew?.map((cast: any, id: number) => {
+                  return (
+                    <CreditList
+                      key={id}
+                      known_for_department={cast.known_for_department}
+                      imageUrl={cast.profile_path}
+                      name={cast.name}
+                    />
+                  );
+                })}
+              </Slider>
+            </Box>
           </>
         ) : null}
         <BackDrop bgImage={makeImagePath(result?.backdrop_path)} />
@@ -301,12 +378,18 @@ const MovieDetail = () => {
             <SelectBox>
               <Select
                 onMouseOver={() => {
-                  setBoxshow(true);
+                  // setBoxshow(true);
                 }}
               >
                 Trailer
               </Select>
-              <Select>Film</Select>
+              <Select
+                onMouseOver={() => {
+                  setBoxshow(true);
+                }}
+              >
+                Film
+              </Select>
             </SelectBox>
           </SelectContainer>
         </ContentBox>
