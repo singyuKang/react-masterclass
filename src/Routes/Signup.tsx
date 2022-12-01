@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import styled from "styled-components";
-import Image, { useState } from "react";
+import Image, { useEffect, useState } from "react";
 import { ImageConstants } from "../utils";
 import { themegloabalStyle } from "../themegloabalStyle";
 import colors from "../colors";
@@ -120,8 +120,17 @@ function SignUp() {
   // };
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [checkpassword, setCheckPassword] = useState("");
+
+  const [validateword, setValidateWord] = useState("");
+  const [validatewordshow, setValidateWordShow] = useState(false);
+
   const loadingDispatch = useLoadingDispatch();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    _validatePassword();
+  }, [checkpassword, password]);
 
   const onChange = (event: any) => {
     // console.log(event.target.value);
@@ -133,6 +142,18 @@ function SignUp() {
       setEmail(value);
     } else if (name === "password") {
       setPassword(value);
+    } else if (name === "validatepassword") {
+      setCheckPassword(value);
+    }
+  };
+
+  const _validatePassword = () => {
+    if (password === checkpassword) {
+      setValidateWordShow(true);
+      setValidateWord("비밀번호가 일치합니다");
+    } else if (password !== checkpassword) {
+      setValidateWordShow(true);
+      setValidateWord("비밀번호가 일치하지않습니다");
     }
   };
 
@@ -179,6 +200,7 @@ function SignUp() {
       hideLoading(loadingDispatch);
     }
   };
+
   return (
     <Container>
       {/* <LoginWapper>
@@ -237,7 +259,7 @@ function SignUp() {
                 // flex: 1,
                 height: 50,
                 borderRadius: 10,
-                marginBottom: 50,
+                marginBottom: 20,
                 // backgroundColor: "tomato",
               }}
               name="password"
@@ -247,6 +269,35 @@ function SignUp() {
               onChange={onChange}
               required
             />
+            <input
+              style={{
+                display: "flex",
+                // flex: 1,
+                height: 50,
+                borderRadius: 10,
+                marginBottom: 20,
+                // backgroundColor: "tomato",
+              }}
+              name="validatepassword"
+              value={checkpassword}
+              type="password"
+              placeholder="회원가입 확인"
+              onChange={onChange}
+              required
+            />
+            {checkpassword && (
+              <span
+                style={{
+                  display: "flex",
+                  // flex: 1,
+
+                  marginBottom: 30,
+                  // backgroundColor: "tomato",
+                }}
+              >
+                {validateword}
+              </span>
+            )}
             <input style={styles.base} type="submit" value={"회원가입"} />
           </form>
           <span>

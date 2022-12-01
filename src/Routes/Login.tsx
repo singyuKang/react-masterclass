@@ -14,6 +14,7 @@ import {
   useLoadingDispatch,
 } from "../contexts/LoadingContext";
 import Swal from "sweetalert2";
+import { Link } from "react-router-dom";
 
 const Container = styled.div`
   position: absolute;
@@ -286,14 +287,16 @@ function Login() {
           </form>
           <div>
             <span style={{ opacity: 0.5 }}>회원이 아니신가요? </span>
-            <span
-              style={{ opacity: 1, textDecoration: "underline" }}
-              onClick={() => {
-                navigate("/signup");
-              }}
-            >
-              지금 가입하세요.
-            </span>
+            <Link to="/signup">
+              <span
+                style={{ opacity: 1, textDecoration: "underline" }}
+                onClick={() => {
+                  navigate("/signup");
+                }}
+              >
+                지금 가입하세요.
+              </span>
+            </Link>
           </div>
 
           {/* <div>value: {value}</div>
