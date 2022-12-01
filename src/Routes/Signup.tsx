@@ -13,6 +13,7 @@ import {
   useLoadingDispatch,
 } from "../contexts/LoadingContext";
 import Swal from "sweetalert2";
+import { Link } from "react-router-dom";
 
 const Container = styled.div`
   position: absolute;
@@ -123,7 +124,7 @@ function SignUp() {
   const [checkpassword, setCheckPassword] = useState("");
 
   const [validateword, setValidateWord] = useState("");
-  const [validatewordshow, setValidateWordShow] = useState(false);
+  const [validatepassword, setValidatePassword] = useState(false);
 
   const loadingDispatch = useLoadingDispatch();
   const navigate = useNavigate();
@@ -149,10 +150,10 @@ function SignUp() {
 
   const _validatePassword = () => {
     if (password === checkpassword) {
-      setValidateWordShow(true);
+      setValidatePassword(true);
       setValidateWord("비밀번호가 일치합니다");
     } else if (password !== checkpassword) {
-      setValidateWordShow(true);
+      setValidatePassword(false);
       setValidateWord("비밀번호가 일치하지않습니다");
     }
   };
@@ -161,17 +162,25 @@ function SignUp() {
     event.preventDefault();
     try {
       showLoading(loadingDispatch);
-      let data = await signupEmail(email, password);
-      hideLoading(loadingDispatch);
-      console.log("🚀 ~ file: Signup.tsx ~ line 132 ~ onSubmit ~ data", data);
-      Swal.fire({
-        // icon: "warning",
-        // title: "hello",
-        text: "회원가입 완료되었습니다 이메일 인증을 진행해주세요",
-        // timer: 2000,
-      });
+      if (validatepassword === true) {
+        let data = await signupEmail(email, password);
+        console.log("🚀 ~ file: Signup.tsx ~ line 132 ~ onSubmit ~ data", data);
+        Swal.fire({
+          // icon: "warning",
+          // title: "hello",
+          text: "회원가입 완료되었습니다 이메일 인증을 진행해주세요",
+          // timer: 2000,
+        });
 
-      navigate("/");
+        navigate("/");
+      } else {
+        Swal.fire({
+          // icon: "warning",
+          // title: "hello",
+          text: "비밀번호를 다시한번 확인해주세요",
+          // timer: 2000,
+        });
+      }
     } catch (error: any) {
       var errorCode = (error as any).code;
       if (error.code == "auth/weak-password") {
@@ -207,14 +216,16 @@ function SignUp() {
         <img src={ImageConstants.LOGIN} alßt="Login.logo" />
       </LoginWapper> */}
       <Col>
-        <Logo
-          xmlns="http://www.w3.org/2000/svg"
-          width="1024"
-          height="276.742"
-          viewBox="0 0 1024 276.742"
-        >
-          <path d={ImageConstants.LOGIN_LOGO} fill="#d81f26" />
-        </Logo>
+        <Link to="/">
+          <Logo
+            xmlns="http://www.w3.org/2000/svg"
+            width="1024"
+            height="276.742"
+            viewBox="0 0 1024 276.742"
+          >
+            <path d={ImageConstants.LOGIN_LOGO} fill="#d81f26" />
+          </Logo>
+        </Link>
       </Col>
       <LoginBodyWrapper>
         <LoginBody>
@@ -300,7 +311,7 @@ function SignUp() {
             )}
             <input style={styles.base} type="submit" value={"회원가입"} />
           </form>
-          <span>
+          {/* <span>
             회원이 아니신가요?{" "}
             <span
               onClick={() => {
@@ -309,7 +320,7 @@ function SignUp() {
             >
               지금 가입하세요.
             </span>
-          </span>
+          </span> */}
 
           {/* <div>value: {value}</div>
           <button onClick={addValue}> + </button>
