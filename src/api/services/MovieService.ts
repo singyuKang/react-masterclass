@@ -99,6 +99,24 @@ const MovieService = {
     );
     return response;
   },
+
+  //getMovieSearch
+  getMovieSearch: async (keyword: any) => {
+    const response = await instance.get(
+      `${BASE_PATH}/search/movie/?api_key=${API_KEY}`,
+      { params: { query: encodeURIComponent(keyword) } }
+    );
+    return response;
+  },
+
+  //getTvSearch
+  getTvSearch: async (keyword: any) => {
+    const response = await instance.get(
+      `${BASE_PATH}/search/tv/?api_key=${API_KEY}`,
+      { params: { query: encodeURIComponent(keyword) } }
+    );
+    return response;
+  },
 };
 
 export default MovieService;

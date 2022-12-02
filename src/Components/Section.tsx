@@ -2,9 +2,10 @@ import React from "react";
 import styled from "styled-components";
 
 const Container = styled.div`
+  display: flex;
+  flex-direction: column;
   padding-left: 50px;
   padding-right: 50px;
-
   padding-top: 30px;
   margin-top: 60px;
   :not(:last-child) {
