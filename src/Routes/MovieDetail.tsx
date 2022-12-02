@@ -18,6 +18,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import CreditList from "../Components/CreditList";
+import { AnimatePresence, motion } from "framer-motion";
 
 interface Genres {
   id: number;
@@ -110,7 +111,7 @@ const SelectBox = styled.div`
   display: flex;
 `;
 
-const BoxContainer = styled.div`
+const BoxContainer = styled(motion.div)`
   position: absolute;
   background-color: black;
   opacity: 0.5;
@@ -121,7 +122,7 @@ const BoxContainer = styled.div`
   height: 100%;
 `;
 
-const Box = styled.div`
+const Box = styled(motion.div)`
   position: absolute;
   display: flex;
   flex-direction: column;
@@ -315,51 +316,57 @@ const MovieDetail = () => {
       <Container>
         {boxshow ? (
           <>
-            <BoxContainer />
-            <Box>
-              <div
-                style={{
-                  display: "flex",
-                  // backgroundColor: "black",
-                  justifyContent: "flex-end",
-                }}
+            <AnimatePresence>
+              <BoxContainer />
+              <Box
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
               >
                 <div
-                  onClick={() => {
-                    setBoxshow(false);
+                  style={{
+                    display: "flex",
+                    // backgroundColor: "black",
+                    justifyContent: "flex-end",
                   }}
                 >
-                  x {"    "}
+                  <div
+                    onClick={() => {
+                      setBoxshow(false);
+                    }}
+                  >
+                    x {"    "}
+                  </div>
                 </div>
-              </div>
-              <Text>Cast</Text>
-              <Slider {...castsettings}>
-                {credit?.cast?.map((cast: any, id: number) => {
-                  return (
-                    <CreditList
-                      // id={id}
-                      key={id}
-                      known_for_department={cast.known_for_department}
-                      imageUrl={cast.profile_path}
-                      name={cast.name}
-                    />
-                  );
-                })}
-              </Slider>
-              <Text>Crew</Text>
-              <Slider {...crewsettings}>
-                {credit?.crew?.map((cast: any, id: number) => {
-                  return (
-                    <CreditList
-                      key={id}
-                      known_for_department={cast.known_for_department}
-                      imageUrl={cast.profile_path}
-                      name={cast.name}
-                    />
-                  );
-                })}
-              </Slider>
-            </Box>
+                <Text>Cast</Text>
+                <Slider {...castsettings}>
+                  {credit?.cast?.map((cast: any, id: number) => {
+                    return (
+                      <CreditList
+                        // id={id}
+                        key={id}
+                        known_for_department={cast.known_for_department}
+                        imageUrl={cast.profile_path}
+                        name={cast.name}
+                      />
+                    );
+                  })}
+                </Slider>
+                <Text>Crew</Text>
+                <Slider {...crewsettings}>
+                  {credit?.crew?.map((cast: any, id: number) => {
+                    return (
+                      <CreditList
+                        key={id}
+                        known_for_department={cast.known_for_department}
+                        imageUrl={cast.profile_path}
+                        name={cast.name}
+                      />
+                    );
+                  })}
+                </Slider>
+              </Box>
+            </AnimatePresence>
           </>
         ) : null}
         <BackDrop bgImage={makeImagePath(result?.backdrop_path)} />
@@ -369,12 +376,14 @@ const MovieDetail = () => {
           <ItemContainer>
             <Item>
               {result?.release_date
-                ? result?.release_date.substring(0, 4)
-                : result?.first_air_date.substring(0, 4)}
+                ? result?.release_date?.substring(0, 4)
+                : result?.first_air_date?.substring(0, 4)}
             </Item>
             <Divider>•</Divider>
             <Item>
-              {result?.runtime ? result?.runtime : result?.episode_run_time[0]}{" "}
+              {result && result?.runtime
+                ? result?.runtime
+                : result?.episode_run_time[0]}{" "}
               min
             </Item>
             <Divider>•</Divider>

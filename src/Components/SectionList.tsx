@@ -84,7 +84,24 @@ const SectionList = ({ id, imageUrl, title, rating, year, isMovie }: Props) => {
   return (
     <Link to={`/movie/${id}`} state={{ isMovie: isMovie }}>
       <Container>
-        <ImageContainer whileHover={{ scale: 1.3 }}>
+        <ImageContainer
+          initial={{ opacity: 0 }}
+          whileInView={{
+            opacity: 1,
+            // scale: 1.1,
+            transition: {
+              damping: 10,
+              delay: 0.1,
+            },
+            // rotate: [0, 360],
+            // borderRadius: ["20%", "50%"],
+            // transition: { delay: 0.02 },
+          }}
+          whileHover={{
+            scale: 1.3,
+            transition: { type: "spring", stiffness: 400, damping: 10 },
+          }}
+        >
           <Image bgPhoto={`https://image.tmdb.org/t/p/w300${imageUrl}`}>
             <Title>{title}</Title>
             <Year>{year}</Year>
