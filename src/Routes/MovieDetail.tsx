@@ -13,7 +13,7 @@ import {
   showLoading,
   useLoadingDispatch,
 } from "../contexts/LoadingContext";
-import { makeImagePath } from "../utils";
+import { ImageConstants, makeImagePath } from "../utils";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
@@ -330,13 +330,22 @@ const MovieDetail = () => {
                     justifyContent: "flex-end",
                   }}
                 >
-                  <div
+                  {/* <div
                     onClick={() => {
                       setBoxshow(false);
                     }}
                   >
                     x {"    "}
-                  </div>
+                  </div> */}
+
+                  <button
+                    style={{ backgroundColor: "#4a4646" }}
+                    onClick={() => {
+                      setBoxshow(false);
+                    }}
+                  >
+                    <img src={ImageConstants.ICON_CLOSE_WH}></img>
+                  </button>
                 </div>
                 <Text>Cast</Text>
                 <Slider {...castsettings}>
