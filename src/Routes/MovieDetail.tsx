@@ -19,6 +19,7 @@ import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import CreditList from "../Components/CreditList";
 import { AnimatePresence, motion } from "framer-motion";
+import ReactCountryFlag from "react-country-flag";
 
 interface Genres {
   id: number;
@@ -150,12 +151,15 @@ const Select = styled.div`
 const Item = styled.span`
   line-height: 1.3;
   font-weight: 500;
+  display: flex;
+  background-color: #3a6363f8;
 `;
 
 const ItemOverview = styled.span`
   margin-top: 50px;
   line-height: 1.7;
   font-weight: 400;
+  margin-bottom: 50px;
 `;
 const Divider = styled.span`
   margin: 0px 10px;
@@ -174,17 +178,52 @@ const Text = styled.div`
   z-index: 0;
 `;
 
+const Dot = styled.div`
+  position: absolute;
+  height: 7px;
+  width: 7px;
+  border-radius: 7px;
+  top: -4px;
+  bottom: 0;
+  left: -2px;
+  background: #fddb3a;
+  opacity: 0.8;
+  z-index: -1;
+`;
+
+const ContentTitle = styled.div`
+  padding-left: 10px;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 6px;
+  margin-bottom: 40px;
+  position: relative;
+  display: flex;
+  flex: 1;
+  /* background-color: aqua; */
+  z-index: 0;
+`;
+
+const Key = styled.span`
+  font-size: 16px;
+  font-weight: 500;
+  margin-right: 15px;
+  margin-bottom: 15px;
+  flex-direction: column;
+`;
+
 const MovieDetail = () => {
   const moviePathMatch = useMatch("/movie/:id");
   const movieLocation = useLocation();
   const loadingDispatch = useLoadingDispatch();
   const navigate = useNavigate();
   const [result, setResult] = useState<ResultData | any>();
+  console.log("🚀 ~ file: MovieDetail.tsx:183 ~ MovieDetail ~ result", result);
   const [boxshow, setBoxshow] = useState(false);
 
   const [recomendation, setRecomendation] = useState();
   const [credit, setCredit] = useState<any>();
-  console.log("🚀 ~ file: MovieDetail.tsx:172 ~ MovieDetail ~ credit", credit);
+  // console.log("🚀 ~ file: MovieDetail.tsx:172 ~ MovieDetail ~ credit", credit);
 
   const castsettings = {
     // dots: true,
@@ -317,8 +356,9 @@ const MovieDetail = () => {
         {boxshow ? (
           <>
             <AnimatePresence>
-              <BoxContainer />
+              <BoxContainer key={"boxcontainer"} />
               <Box
+                key={"box"}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
@@ -404,7 +444,91 @@ const MovieDetail = () => {
                     : `${genre.name} / `
                 )}
             </Item>
-            <ItemOverview>{result?.overview}</ItemOverview>
+
+            <ItemOverview>
+              {" "}
+              <ContentTitle>
+                Overview
+                <Dot />
+              </ContentTitle>
+              {result?.overview}
+            </ItemOverview>
+
+            <ItemOverview>
+              <ContentTitle>
+                Production
+                <Dot />
+              </ContentTitle>
+            </ItemOverview>
+
+            <Item>
+              {" "}
+              <Key>Companies :</Key>
+              {result?.production_companies &&
+              result?.production_companies.length > 0
+                ? result?.production_companies
+                    .filter((company: any, index: number) => index < 5)
+                    .map((company: any, index: number) =>
+                      index === result?.production_companies.length - 1 ||
+                      index === 4 ? (
+                        <span key={index}>{company.name}</span>
+                      ) : (
+                        <>
+                          <span key={index}>{company.name}</span>
+                          <Divider>/</Divider>
+                        </>
+                      )
+                    )
+                : "None"}
+            </Item>
+            <Item>
+              <Key>Countries :</Key>
+              {movieLocation.state.isMovie
+                ? result?.production_countries &&
+                  result?.production_countries.length > 0 &&
+                  result?.production_countries
+                    .filter((country: any, index: number) => index < 5)
+                    .map((country: { iso_3166_1: any }, index: number) =>
+                      index === result?.production_countries.length - 1 ||
+                      index === 4 ? (
+                        <>
+                          {`${country.iso_3166_1}  `}
+                          <ReactCountryFlag
+                            countryCode={`${country.iso_3166_1}`}
+                            svg
+                          />
+                        </>
+                      ) : (
+                        <>
+                          {`${country.iso_3166_1}  `}
+                          <ReactCountryFlag
+                            countryCode={`${country.iso_3166_1}`}
+                            svg
+                          />
+                          <Divider>/</Divider>
+                        </>
+                      )
+                    )
+                : result?.origin_country &&
+                  result?.origin_country.length > 0 &&
+                  result?.origin_country
+                    .filter((country: any, index: number) => index < 5)
+                    .map((country: any, index: number) =>
+                      index === result.origin_country.length - 1 ||
+                      index === 4 ? (
+                        <>
+                          {`${country}  `}
+                          <ReactCountryFlag countryCode={`${country}`} svg />
+                        </>
+                      ) : (
+                        <>
+                          {`${country}  `}
+                          <ReactCountryFlag countryCode={`${country}`} svg />
+                          <Divider>/</Divider>
+                        </>
+                      )
+                    )}
+            </Item>
           </ItemContainer>
           <SelectContainer>
             <SelectBox>
