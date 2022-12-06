@@ -96,6 +96,7 @@ const Title = styled.h3`
 const ItemContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
+  flex-direction: column;
   /* background-color: #6d4c4c; */
 `;
 
@@ -133,7 +134,7 @@ const Box = styled(motion.div)`
   left: 50;
   width: 90%;
   height: 60%;
-  background-color: #585353;
+  background-color: #110f0f;
 `;
 
 const Select = styled.div`
@@ -152,14 +153,17 @@ const Item = styled.span`
   line-height: 1.3;
   font-weight: 500;
   display: flex;
-  background-color: #3a6363f8;
+  /* background-color: #3a6363f8; */
 `;
 
 const ItemOverview = styled.span`
   margin-top: 50px;
   line-height: 1.7;
   font-weight: 400;
-  margin-bottom: 50px;
+  /* margin-bottom: 50px; */
+  /* display: flex; */
+  /* justify-content: center; */
+  /* align-items: center; */
 `;
 const Divider = styled.span`
   margin: 0px 10px;
@@ -179,16 +183,20 @@ const Text = styled.div`
 `;
 
 const Dot = styled.div`
-  position: absolute;
-  height: 7px;
-  width: 7px;
+  /* position: absolute; */
+  /* background-color: black; */
+  display: flex;
+  /* padding-top: px; */
+  height: 10px;
+  width: 10px;
   border-radius: 7px;
-  top: -4px;
-  bottom: 0;
-  left: -2px;
-  background: #fddb3a;
+  /* align-self: center; */
+  /* top: -4px; */
+  /* bottom: 0; */
+  /* left: -2px; */
+  background: #c9c197;
   opacity: 0.8;
-  z-index: -1;
+  z-index: 10;
 `;
 
 const ContentTitle = styled.div`
@@ -196,10 +204,10 @@ const ContentTitle = styled.div`
   font-size: 20px;
   font-weight: 600;
   line-height: 6px;
-  margin-bottom: 40px;
-  position: relative;
+  margin-bottom: 20px;
+  /* position: relative; */
   display: flex;
-  flex: 1;
+  /* flex: 1; */
   /* background-color: aqua; */
   z-index: 0;
 `;
@@ -208,7 +216,7 @@ const Key = styled.span`
   font-size: 16px;
   font-weight: 500;
   margin-right: 15px;
-  margin-bottom: 15px;
+  margin-bottom: 40px;
   flex-direction: column;
 `;
 
@@ -280,7 +288,7 @@ const MovieDetail = () => {
 
   const _fetData = async () => {
     try {
-      if (movieLocation.state.isMovie === true) {
+      if (movieLocation?.state?.isMovie === true) {
         showLoading(loadingDispatch);
         const response = await MovieService.getMovieDetail(
           parseInt(moviePathMatch?.params?.id as string)
@@ -378,14 +386,13 @@ const MovieDetail = () => {
                     x {"    "}
                   </div> */}
 
-                  <button
-                    style={{ backgroundColor: "#4a4646" }}
+                  <img
+                    style={{ marginRight: "10px", marginTop: "10px" }}
                     onClick={() => {
                       setBoxshow(false);
                     }}
-                  >
-                    <img src={ImageConstants.ICON_CLOSE_WH}></img>
-                  </button>
+                    src={ImageConstants.ICON_CLOSE_WH}
+                  ></img>
                 </div>
                 <Text>Cast</Text>
                 <Slider {...castsettings}>
@@ -421,49 +428,50 @@ const MovieDetail = () => {
         <BackDrop bgImage={makeImagePath(result?.backdrop_path)} />
         <LeftImage bgImage={makeImagePath(result?.poster_path)} />
         <ContentBox>
-          <Title>{result?.original_title}</Title>
+          {movieLocation?.state?.isMovie ? (
+            <Title>{result?.original_title}</Title>
+          ) : (
+            <Title>{result?.original_name}</Title>
+          )}
           <ItemContainer>
-            <Item>
-              {result?.release_date
-                ? result?.release_date?.substring(0, 4)
-                : result?.first_air_date?.substring(0, 4)}
-            </Item>
-            <Divider>•</Divider>
-            <Item>
-              {result && result?.runtime
-                ? result?.runtime
-                : result?.episode_run_time[0]}{" "}
-              min
-            </Item>
-            <Divider>•</Divider>
-            <Item>
-              {result?.genres &&
-                result?.genres?.map((genre: Genres, index: number) =>
-                  index === result.genres.length - 1
-                    ? genre.name
-                    : `${genre.name} / `
-                )}
-            </Item>
+            <div style={{ display: "flex" }}>
+              <Item>
+                {result?.release_date
+                  ? result?.release_date?.substring(0, 4)
+                  : result?.first_air_date?.substring(0, 4)}
+              </Item>
+              <Divider>•</Divider>
+              <Item>
+                {result && result?.runtime
+                  ? result?.runtime
+                  : result?.episode_run_time[0]}{" "}
+                min
+              </Item>
+              <Divider>•</Divider>
+              <Item>
+                {result?.genres &&
+                  result?.genres?.map((genre: Genres, index: number) =>
+                    index === result.genres.length - 1
+                      ? genre.name
+                      : `${genre.name} / `
+                  )}
+              </Item>
+            </div>
 
             <ItemOverview>
               {" "}
-              <ContentTitle>
-                Overview
-                <Dot />
-              </ContentTitle>
+              <Dot />
+              <ContentTitle>Overview</ContentTitle>
               {result?.overview}
             </ItemOverview>
 
             <ItemOverview>
-              <ContentTitle>
-                Production
-                <Dot />
-              </ContentTitle>
+              <Dot />
+              <ContentTitle>Production</ContentTitle>
             </ItemOverview>
-
+            {/* key  */}
             <Item>
-              {" "}
-              <Key>Companies :</Key>
+              <Key>Companies:</Key>
               {result?.production_companies &&
               result?.production_companies.length > 0
                 ? result?.production_companies
@@ -471,44 +479,45 @@ const MovieDetail = () => {
                     .map((company: any, index: number) =>
                       index === result?.production_companies.length - 1 ||
                       index === 4 ? (
-                        <span key={index}>{company.name}</span>
+                        <span key={company.id}>{company.name}</span>
                       ) : (
                         <>
                           <span key={index}>{company.name}</span>
-                          <Divider>/</Divider>
+                          <Divider key={company.logo_path}>/</Divider>
                         </>
                       )
                     )
                 : "None"}
             </Item>
             <Item>
-              <Key>Countries :</Key>
-              {movieLocation.state.isMovie
+              <Key>Countries:</Key>
+              {movieLocation?.state?.isMovie
                 ? result?.production_countries &&
-                  result?.production_countries.length > 0 &&
-                  result?.production_countries
-                    .filter((country: any, index: number) => index < 5)
-                    .map((country: { iso_3166_1: any }, index: number) =>
-                      index === result?.production_countries.length - 1 ||
-                      index === 4 ? (
-                        <>
-                          {`${country.iso_3166_1}  `}
-                          <ReactCountryFlag
-                            countryCode={`${country.iso_3166_1}`}
-                            svg
-                          />
-                        </>
-                      ) : (
-                        <>
-                          {`${country.iso_3166_1}  `}
-                          <ReactCountryFlag
-                            countryCode={`${country.iso_3166_1}`}
-                            svg
-                          />
-                          <Divider>/</Divider>
-                        </>
+                  result?.production_countries.length > 0
+                  ? result?.production_countries
+                      .filter((country: any, index: number) => index < 5)
+                      .map((country: { iso_3166_1: any }, index: number) =>
+                        index === result?.production_countries.length - 1 ||
+                        index === 4 ? (
+                          <>
+                            {`${country.iso_3166_1}  `}
+                            <ReactCountryFlag
+                              countryCode={`${country.iso_3166_1}`}
+                              svg
+                            />
+                          </>
+                        ) : (
+                          <>
+                            {`${country.iso_3166_1}  `}
+                            <ReactCountryFlag
+                              countryCode={`${country.iso_3166_1}`}
+                              svg
+                            />
+                            <Divider>/</Divider>
+                          </>
+                        )
                       )
-                    )
+                  : "None"
                 : result?.origin_country &&
                   result?.origin_country.length > 0 &&
                   result?.origin_country
@@ -532,13 +541,13 @@ const MovieDetail = () => {
           </ItemContainer>
           <SelectContainer>
             <SelectBox>
-              <Select
+              {/* <Select
                 onMouseOver={() => {
                   // setBoxshow(true);
                 }}
               >
                 Trailer
-              </Select>
+              </Select> */}
               <Select
                 onMouseOver={() => {
                   setBoxshow(true);

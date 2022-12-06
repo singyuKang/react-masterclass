@@ -8,6 +8,7 @@ const Container = styled.div`
   padding-right: 50px;
   padding-top: 30px;
   margin-top: 60px;
+  padding-bottom: 50px;
   :not(:last-child) {
     margin-bottom: 50px;
   }
