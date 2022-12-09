@@ -58,7 +58,7 @@ const LeftImage = styled.div<{ bgImage: string }>`
   background-image: url(${(props) => props.bgImage});
   background-position: center center;
   background-size: cover;
-  /* display: flex; */
+  display: flex;
   /* z-index: 100; */
 `;
 
@@ -146,7 +146,7 @@ const Select = styled.div`
   font-weight: 500;
   border-radius: 5px;
   height: 50px;
-  background-color: #371608;
+  background-color: #2b2827;
 `;
 
 const Item = styled.span`
