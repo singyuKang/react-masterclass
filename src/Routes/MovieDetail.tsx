@@ -79,7 +79,6 @@ const ContentBox = styled.div`
   padding-right: 20px;
   padding-top: 20px;
   padding-bottom: 20px;
-
   width: 90%;
   height: 100%;
   border-radius: 5px;
@@ -160,10 +159,6 @@ const ItemOverview = styled.span`
   margin-top: 50px;
   line-height: 1.7;
   font-weight: 400;
-  /* margin-bottom: 50px; */
-  /* display: flex; */
-  /* justify-content: center; */
-  /* align-items: center; */
 `;
 const Divider = styled.span`
   margin: 0px 10px;
@@ -183,17 +178,10 @@ const Text = styled.div`
 `;
 
 const Dot = styled.div`
-  /* position: absolute; */
-  /* background-color: black; */
   display: flex;
-  /* padding-top: px; */
   height: 10px;
   width: 10px;
   border-radius: 7px;
-  /* align-self: center; */
-  /* top: -4px; */
-  /* bottom: 0; */
-  /* left: -2px; */
   background: #c9c197;
   opacity: 0.8;
   z-index: 10;
@@ -208,7 +196,7 @@ const ContentTitle = styled.div`
   /* position: relative; */
   display: flex;
   /* flex: 1; */
-  /* background-color: aqua; */
+
   z-index: 0;
 `;
 

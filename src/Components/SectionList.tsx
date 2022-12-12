@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { motion, AnimatePresence } from "framer-motion";
+import { ImageConstants } from "../utils";
 
 const Container = styled.div`
   font-size: 12px;
@@ -102,10 +103,18 @@ const SectionList = ({ id, imageUrl, title, rating, year, isMovie }: Props) => {
             transition: { type: "spring", stiffness: 400, damping: 10 },
           }}
         >
-          <Image bgPhoto={`https://image.tmdb.org/t/p/w300${imageUrl}`}>
-            <Title>{title}</Title>
-            <Year>{year}</Year>
-          </Image>
+          {imageUrl ? (
+            <Image bgPhoto={`https://image.tmdb.org/t/p/w300${imageUrl}`}>
+              <Title>{title}</Title>
+              <Year>{year}</Year>
+            </Image>
+          ) : (
+            <Image bgPhoto={ImageConstants.ICON_NO_IMAGE}>
+              <Title>{title}</Title>
+              <Year>{year}</Year>
+            </Image>
+          )}
+
           {rating ? (
             <Rating>
               <span role="img" aria-label="rating">
