@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/react-masterclass/static/css/main.beace10b.css",
-    "main.js": "/react-masterclass/static/js/main.4e35cf3a.js",
+    "main.js": "/react-masterclass/static/js/main.df0fe80d.js",
     "static/js/787.13312aec.chunk.js": "/react-masterclass/static/js/787.13312aec.chunk.js",
     "static/media/LoginImgage.jpeg": "/react-masterclass/static/media/LoginImgage.3412f2e9fb75eca55632.jpeg",
     "static/media/slick.svg": "/react-masterclass/static/media/slick.2630a3e3eab21c607e21.svg",
@@ -10,11 +10,11 @@
     "static/media/slick.woff": "/react-masterclass/static/media/slick.295183786cd8a1389865.woff",
     "index.html": "/react-masterclass/index.html",
     "main.beace10b.css.map": "/react-masterclass/static/css/main.beace10b.css.map",
-    "main.4e35cf3a.js.map": "/react-masterclass/static/js/main.4e35cf3a.js.map",
+    "main.df0fe80d.js.map": "/react-masterclass/static/js/main.df0fe80d.js.map",
     "787.13312aec.chunk.js.map": "/react-masterclass/static/js/787.13312aec.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.beace10b.css",
-    "static/js/main.4e35cf3a.js"
+    "static/js/main.df0fe80d.js"
   ]
 }
