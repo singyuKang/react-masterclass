@@ -12,7 +12,7 @@ import AuthProvider from "./contexts/AuthContext";
 
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={process.env.PUBLIC_URL}>
       <Routes>
         <Route
           path="/tv"
@@ -31,6 +31,7 @@ function App() {
           }
         ></Route>
         <Route path="/" element={<Login />}></Route>
+        {/* <Route path="/react-masterclass" element={<Login />}></Route> */}
         <Route path="/signup" element={<SignUp />}></Route>
         <Route
           path="/movie/:id"
