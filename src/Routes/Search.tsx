@@ -14,7 +14,7 @@ import {
 
 const Container = styled.div`
   width: 100%;
-  height: 100%;
+  height: 100vh;
   background-color: black;
   /* display: flex; */
   /* paddin
@@ -37,7 +37,7 @@ function Search() {
 
   useEffect(() => {
     _fetData();
-  }, []);
+  }, [keyword]);
 
   const _fetData = async () => {
     try {
