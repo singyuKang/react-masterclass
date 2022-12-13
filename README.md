@@ -1,4 +1,4 @@
 # React Project
 
-[Visit My Project](https://singyukang.github.io/react-movie-first/).
+[Visit My Project](https://singyukang.github.io/react-masterclass/).
 
