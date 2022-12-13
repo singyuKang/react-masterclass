@@ -13,6 +13,7 @@ import {
 } from "firebase/auth";
 import { Navigate, useNavigate, useNavigation } from "react-router-dom";
 import { stringify } from "querystring";
+
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -49,10 +50,10 @@ export const signupEmail = async (email: string, password: string) => {
 //Email 로그인
 export const loginEmail = async (email: string, password: string) => {
   const emailVerified = auth.currentUser?.emailVerified;
-  console.log(
-    "🚀 ~ file: fBase.ts ~ line 47 ~ loginEmail ~ emailVerified",
-    emailVerified
-  );
+  // console.log(
+  //   "🚀 ~ file: fBase.ts ~ line 47 ~ loginEmail ~ emailVerified",
+  //   emailVerified
+  // );
   // auth.onAuthStateChanged((user: any) => {
   //   console.log(
   //     "🚀 ~ file: fBase.ts ~ line 53 ~ auth.onAuthStateChanged ~ user",
@@ -65,10 +66,10 @@ export const loginEmail = async (email: string, password: string) => {
   //   }
   // });
   if (emailVerified === true) {
-    console.log("emailVerifired true");
+    // console.log("emailVerifired true");
     return signInWithEmailAndPassword(auth, email, password);
   } else if (emailVerified === undefined) {
-    console.log("Logout and login");
+    // console.log("Logout and login");
     return signInWithEmailAndPassword(auth, email, password);
   } else {
     throw "auth/emailVerified";
@@ -107,9 +108,9 @@ export const logOut = () => {
       //Signout successful
       localStorage.removeItem("token");
       localStorage.removeItem("uid");
-      console.log(
-        "🚀 ~ file: fBase.ts ~ line 84 ~ auth.signOut SignoutComplete"
-      );
+      // console.log(
+      //   "🚀 ~ file: fBase.ts ~ line 84 ~ auth.signOut SignoutComplete"
+      // );
     } catch (error) {
       console.log(
         "🚀 ~ file: fBase.ts ~ line 84 ~ auth.signOut ~ error",
@@ -130,7 +131,7 @@ export function getToken() {
   auth.onIdTokenChanged(function (user) {
     if (user) {
       user.getIdToken().then((token) => {
-        console.log("my token : ", token);
+        // console.log("my token : ", token);
         setToken(token);
       });
     }

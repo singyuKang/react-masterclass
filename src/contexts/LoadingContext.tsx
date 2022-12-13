@@ -57,8 +57,6 @@ export function useLoadingDispatch() {
   return dispatch;
 }
 
-export { showLoading, hideLoading };
-
 function showLoading(dispatch: any) {
   dispatch({
     type: "SHOW",
@@ -70,3 +68,5 @@ function hideLoading(dispatch: any) {
     type: "HIDE",
   });
 }
+
+export { showLoading, hideLoading };
