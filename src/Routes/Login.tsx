@@ -155,7 +155,11 @@ function Login() {
       // checkLogin();
       hideLoading(loadingDispatch);
       console.log("data : : : :: ", data);
-      console.log("🚀 ~ file: Login.tsx ~ line 157 ~ onSubmit ~ data", data);
+      console.log(
+        "🚀 ~ file: Login.tsx ~ line 157 ~ onSubmit ~ data",
+        data.user.uid
+      );
+      localStorage.setItem("uid", data.user.uid);
 
       navigate("/home");
     } catch (error: any) {

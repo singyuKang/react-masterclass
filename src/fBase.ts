@@ -32,7 +32,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 
 //auth
-const auth = getAuth(app);
+export const auth = getAuth(app);
 
 //email 회원가입
 export const signupEmail = async (email: string, password: string) => {
@@ -106,6 +106,7 @@ export const logOut = () => {
     try {
       //Signout successful
       localStorage.removeItem("token");
+      localStorage.removeItem("uid");
       console.log(
         "🚀 ~ file: fBase.ts ~ line 84 ~ auth.signOut SignoutComplete"
       );

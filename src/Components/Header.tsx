@@ -219,7 +219,13 @@ function Header() {
             Log Out
           </div> */}
           <Link to={`/`}>
-            <span>Log Out</span>
+            <span
+              onClick={() => {
+                logOut();
+              }}
+            >
+              Log Out
+            </span>
           </Link>
         </Col>
       </Col>
