@@ -137,7 +137,8 @@ customAxios -> MovieService
 ## Login 
 
 createUserWithEmailAndPassword(auth, email, password)을 통해 유저를 생성하여 유저에게 메일을 보내 확인이 되면 회원가입이 됩니다.
-
+로그인성공하면 localStorage에 uid를 넣습니다. uid가 없다면은 내부로 들어올수 없도록 AuthProvider 를 통해 로그인이 필요한 부분들을 감싸주었습니다.
+아쉬운점은 JWT TOKEN을 활용하여 header에 넣고 유효성 검사를 하여 검증을 시도해 보고 싶었지만 영화제공API서버가 내것이 아니다 보니 헤더에 값을 넣고 쏠수가 없었습니다.token 값을  활용할 수 없었던 것이 아쉬웠습니다.
 
 
 <br>
