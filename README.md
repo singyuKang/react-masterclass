@@ -38,6 +38,7 @@ Learning React and ES6 by building Movie App
 
 ## Directory Structure
 
+```
 ├── .DS_Store
 ├── App.tsx
 ├── Components
@@ -112,74 +113,8 @@ Learning React and ES6 by building Movie App
 ├── theme.ts
 ├── themegloabalStyle.ts
 └── utils.ts
-
-
 ```
-public
-|-- loading.gif
-|-- noPosterSmall.png
-src
-|-- actions
-|   |-- tmdbAction.js
-|-- api
-|   |-- api.js
-|-- components
-|   |-- Actor.js
-|   |-- Content.js
-|   |-- Crew.js
-|   |-- GlobalStyles.js
-|   |-- Header.js
-|   |-- Loader.js
-|   |-- Message.js
-|   |-- Poster.js
-|   |-- Production.js
-|   |-- Recommandation.js
-|   |-- Season.js
-|   |-- Similarity.js
-|   |-- Slide.js
-|-- contexts
-|   |-- tmdbContext.js
-|-- reducers
-|   |-- tmdbReducer.js
-|-- routes
-|   |-- Detail
-|   |   |-- DetailContainer.js
-|   |   |-- DetailPresenter.js
-|   |   |-- index.js
-|   |-- Home
-|   |   |-- HomeContainer.js
-|   |   |-- HomePresenter.js
-|   |   |-- index.js
-|   |-- Movie
-|   |   |-- index.js
-|   |   |-- MovieContainer.js
-|   |   |-- MoviePresenter.js
-|   |-- Search
-|   |   |-- index.js
-|   |   |-- SearchContainer.js
-|   |   |-- SearchPresenter.js
-|   |-- TV
-|   |   |-- index.js
-|   |   |-- TVContainer.js
-|   |   |-- TVPresenter.js
-|-- stores
-|   |-- tmdbStore.js
-|-- styles
-|   |-- Theme.js
-|-- system
-|   |-- PostFilmData.js
-|   |-- PostSectionData.js
-|   |-- PostSlideData.js
-|   |-- PostTabData.js
-|   |-- PostTrailerData.js
-|-- utils
-|   |-- closeTrailer.js
-|   |-- tabEnter.js
-|   |-- tabLeave.js
-|-- App.js
-|-- index.js
-|-- Router.js
-```
+
 
 ## Screens
 
