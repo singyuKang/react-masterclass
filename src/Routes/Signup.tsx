@@ -224,9 +224,9 @@ function SignUp() {
 
   return (
     <Container>
-      {/* <LoginWapper>
-        <img src={ImageConstants.LOGIN} alßt="Login.logo" />
-      </LoginWapper> */}
+      <LoginWapper>
+        <img alt={"profile"} src={ImageConstants.LOGIN} />
+      </LoginWapper>
       <Col>
         <Link to="/">
           <Logo

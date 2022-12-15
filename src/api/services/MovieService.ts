@@ -1,6 +1,6 @@
 import instance from "../customAxios";
 
-const API_KEY = "04c96827c11e080830f0c0b8d3a94fd6";
+const API_KEY = process.env.REACT_APP_MOVIE_API_KEY;
 const BASE_PATH = "https://api.themoviedb.org/3";
 
 const MovieService = {
