@@ -134,6 +134,8 @@ const Box = styled(motion.div)`
   width: 90%;
   height: 60%;
   background-color: #110f0f;
+  overflow-y: auto;
+  overflow-x: hidden;
 `;
 
 const Select = styled.div`
