@@ -351,6 +351,7 @@ const MovieDetail = () => {
                   </div> */}
 
                   <img
+                    alt="profile"
                     style={{ marginRight: "10px", marginTop: "10px" }}
                     onClick={() => {
                       setBoxshow(false);
