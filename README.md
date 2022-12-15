@@ -31,6 +31,8 @@ Learning React and ES6 by building Movie App
 |    04    | Container & Presenter |        Pattern         |
 |    05    |         Axios         |        TMDB API        |
 
+<br>
+<br>
 
 | Backend  |      Technology       |      Description       |
 | :------: | :-------------------: | :--------------------: |
