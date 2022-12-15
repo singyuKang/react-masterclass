@@ -221,10 +221,6 @@ function Tv() {
   const [popular, setPopular] = useState<any>([]);
   const [airing, setAiring] = useState<any>();
 
-  // console.log(topRated);
-  // console.log(popular);
-  // console.log(airing);
-
   useEffect(() => {
     // console.log(
     //   "🚀 ~ file: Header.tsx ~ line 124 ~ scrollY.onChange ~ scrollY",
@@ -247,22 +243,13 @@ function Tv() {
       showLoading(loadingDispatch);
       const getTopRated = await MovieService.getTopRatedTv();
       setTopRated(getTopRated.data);
-      // console.log(topRated);
-      // setNowPlaying(response.data);
 
       const getAiringTv = await MovieService.getAiringTodayTv();
-      // setUpcoming(upComingRes.data);
+
       setAiring(getAiringTv.data);
 
       const popularRes = await MovieService.getPopularTv();
       setPopular(popularRes.data);
-
-      // console.log(data);
-      // await axios
-      //   .get(`${BASE_PATH}/movie/now_playing?api_key=${API_KEY}`)
-      //   .then((res) => {
-      //     setData(res.data);
-      //   });
     } catch (error) {
       console.log("error:", error);
     } finally {
