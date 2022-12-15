@@ -130,7 +130,41 @@ Learning React and ES6 by building Movie App
 customAxios -> MovieService 
 
 
+## Login 
 
+
+
+
+
+
+## SignUp
+
+
+
+
+## Email Verification
+
+
+
+## Managing State 
+
+
+## Home
+
+
+## Search
+
+
+## Detail
+
+
+
+
+## Animation
+
+
+
+## Alert
 
 
 
