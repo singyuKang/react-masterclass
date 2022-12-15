@@ -1,14 +1,16 @@
 # React Project (react-masterclass)
 
 Learning React and ES6 by building Movie App
-
+<br>
+<br>
 
 # Visit Project
 [Visit My Project](https://singyukang.github.io/react-masterclass/).
-
+<br>
+<br>
 
 ## Preview
-
+<br>
 <img src="./Image1.png" width="600" height="400" /><br>
 <img src="./Image2.png" width="600" height="400" /><br>
 <img src="./Image3.png" width="600" height="400" /><br>
