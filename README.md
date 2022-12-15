@@ -31,9 +31,8 @@ Learning React and ES6 by building Movie App
 
 
 | Backend  |      Technology       |      Description       |
-|    01    |        Firebase       | Login Auth verification|
-
-
+| :------: | :-------------------: | :--------------------: |
+|    01    |       Firebase        |Login Auth verification | 
 
 
 ## Directory Structure
