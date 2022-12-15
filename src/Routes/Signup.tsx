@@ -77,7 +77,7 @@ const LoginInside = styled.div`
   height: 500px;
 `;
 
-const LoginBodyWrapper = styled.div`
+const LoginBodyWrapper = styled(motion.div)`
   margin-top: 50px;
   justify-content: center;
   /* background-color: brown; */
@@ -98,6 +98,19 @@ const LoginText = styled.div`
 `;
 
 const LoginContent = styled.div``;
+
+const loginVariants = {
+  normal: {
+    opacity: 0,
+  },
+  active: {
+    // fillOpacity: [1, 0, 1],
+    // transition: {
+    //   repeat: Infinity,
+    // },
+    opacity: 1,
+  },
+};
 
 function SignUp() {
   // const dispatch = useDispatch();
@@ -171,7 +184,6 @@ function SignUp() {
           text: "회원가입 완료되었습니다 이메일 인증을 진행해주세요",
           // timer: 2000,
         });
-
         navigate("/");
       } else {
         Swal.fire({
@@ -227,7 +239,16 @@ function SignUp() {
           </Logo>
         </Link>
       </Col>
-      <LoginBodyWrapper>
+      <LoginBodyWrapper
+        variants={loginVariants}
+        initial="normal"
+        // whileHover="active"
+        animate="active"
+        transition={{
+          duration: 0.8,
+          delay: 0.2,
+        }}
+      >
         <LoginBody>
           <LoginText>회원가입</LoginText>
           <form

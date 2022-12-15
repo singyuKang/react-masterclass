@@ -76,7 +76,7 @@ const LoginInside = styled.div`
   height: 500px;
 `;
 
-const LoginBodyWrapper = styled.div`
+const LoginBodyWrapper = styled(motion.div)`
   margin-top: 50px;
   justify-content: center;
   /* background-color: brown; */
@@ -228,7 +228,11 @@ function Login() {
           <path d={ImageConstants.LOGIN_LOGO} fill="#d81f26" />
         </Logo>
       </Col>
-      <LoginBodyWrapper>
+      <LoginBodyWrapper
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.8, delay: 0.2 }}
+      >
         <LoginBody>
           <LoginText>로그인</LoginText>
           <form
